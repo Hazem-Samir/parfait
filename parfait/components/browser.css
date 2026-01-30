@@ -7,7 +7,7 @@
 :root:not([lwtheme]) {
   #browser:not(.browser-toolbox-background) {
     --toolbar-bgcolor: var(--toolbox-bgcolor);
-    
+
     &:-moz-window-inactive {
       --toolbar-bgcolor: var(--toolbox-bgcolor-inactive);
     }

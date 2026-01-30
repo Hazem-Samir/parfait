@@ -387,7 +387,7 @@ spacer:is([part="overflow-start-indicator"], [part="overflow-end-indicator"]) {
     --tab-border-radius: var(--pf-border-radius-hl);
     --tab-group-label-padding: 10px;
     --tab-group-label-height: calc(var(--tab-min-height) - var(--pf-navbar-padding-block));
-    
+
     &:hover {
       background-color: color-mix(in srgb, light-dark(var(--tab-group-color), var(--tab-group-color-invert)), transparent 80%) !important;
     }
