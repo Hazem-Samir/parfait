@@ -44,7 +44,7 @@ toolbar .toolbarbutton-1:not(#PlacesChevron, .toolbarbutton-combined-buttons-dro
 }
 .private-browsing-indicator-with-label,
 #fxa-avatar-label {
-  display: none
+  display: none;
 }
 
 /* toolbar */
@@ -128,6 +128,9 @@ toolbar .toolbarbutton-1:not(#PlacesChevron, .toolbarbutton-combined-buttons-dro
   }
 
   /* menu bar */
+  #toolbar-menubar[inactive] {
+    position: fixed;
+  }
   #toolbar-menubar:not([inactive]) {
     position: fixed;
     top: var(--pf-separation);
@@ -260,8 +263,10 @@ toolbarbutton.bookmark-item:not(.subviewbutton) {
       #unified-extensions-button {
         order: -1 !important;
       }
-      #PanelUI-menu-button {
-        --toolbar-start-end-padding: var(--pf-toolbaritem-gap);
+      @media not -moz-pref("parfait.traffic-lights.enabled") {
+        #PanelUI-menu-button {
+          --toolbar-start-end-padding: var(--pf-toolbaritem-gap);
+        }
       }
     }
     /* hl: breakpoints */

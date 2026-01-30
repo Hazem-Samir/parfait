@@ -6,7 +6,11 @@
 /* window: background */
 :root:not([lwtheme]) {
   #browser:not(.browser-toolbox-background) {
-    background-color: transparent !important;
+    --toolbar-bgcolor: var(--toolbox-bgcolor);
+    
+    &:-moz-window-inactive {
+      --toolbar-bgcolor: var(--toolbox-bgcolor-inactive);
+    }
   }
   @media -moz-pref("parfait.bg.transparent") {
     --toolbox-bgcolor: var(--pf-browser-bgcolor-transparent) !important;
@@ -130,14 +134,12 @@
 }
 
 /* customize menu */
-#customization-container {
-  margin-inline: var(--pf-browser-separation);
-  margin-block: 0 var(--pf-browser-separation);
-  border: 1px solid var(--pf-border-color);
-  border-radius: var(--pf-browser-radius);
-}
 #customization-panel-container {
+  padding-top: var(--pf-separation) !important;
   padding-right: var(--pf-browser-separation) !important;
+}
+.panel-arrowbox {
+  display: none !important;
 }
 .panel-arrowcontent {
   border-radius: var(--pf-border-radius-sm) !important;
