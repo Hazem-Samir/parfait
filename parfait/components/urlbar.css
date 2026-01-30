@@ -15,6 +15,9 @@
     --toolbar-field-background-color: var(--pf-toolbar-bgcolor);
     --toolbarbutton-border-radius: var(--pf-border-radius-md);
 
+    @media not -moz-pref("sidebar.verticalTabs") {
+      --toolbarbutton-border-radius: var(--pf-border-radius-hl);
+    }
     #urlbar:not([focused]) & {
       transition: background-color var(--pf-ts-25);
     }
@@ -55,6 +58,9 @@
   #urlbar:not([open]) {
     --urlbar-inner-border-radius: max(var(--pf-border-radius-sm), calc(var(--pf-border-radius-md) - 3px));
 
+    @media not -moz-pref("sidebar.verticalTabs") {
+      --urlbar-inner-border-radius: max(var(--pf-border-radius-sm), calc(var(--pf-border-radius-hl) - 3px));
+    }
     /* urlbar items */
     #userContext-label,
     #identity-box:not([pageproxystate="invalid"]):not(.notSecure) #identity-icon-box:not([open]),

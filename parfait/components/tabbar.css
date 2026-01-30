@@ -10,6 +10,7 @@
 
   /* tabs: horizontal layout */
   &[orient="horizontal"] {
+    --tab-border-radius: var(--pf-border-radius-hl);
     --tab-block-margin: var(--pf-navbar-padding-block);
     --tab-inline-padding: var(--tab-icon-end-margin) !important;
 
@@ -383,7 +384,7 @@ spacer:is([part="overflow-start-indicator"], [part="overflow-end-indicator"]) {
     color: light-dark(var(--tab-group-color), var(--tab-group-color-invert)) !important;
     outline: none !important;
     transition: all var(--pf-ts-15) !important;
-    --tab-border-radius: var(--pf-border-radius-md);
+    --tab-border-radius: var(--pf-border-radius-hl);
     --tab-group-label-padding: 10px;
     --tab-group-label-height: calc(var(--tab-min-height) - var(--pf-navbar-padding-block));
     

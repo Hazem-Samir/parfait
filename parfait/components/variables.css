@@ -156,10 +156,12 @@
   @media -moz-pref("parfait.theme.roundness.preset", 1) {
     --pf-border-radius-md: 12px;
     --pf-border-radius-sm: 6px;
+    --pf-border-radius-hl: 8px;
   }
   @media -moz-pref("parfait.theme.roundness.preset", 2) {
     --pf-border-radius-md: 6px;
     --pf-border-radius-sm: 4px;
+    --pf-border-radius-hl: 6px;
   }
 
   /* browser radius */
