@@ -4,66 +4,86 @@
 */
 
 /* tabs: layout */
-#tabbrowser-tabs[orient="horizontal"] {
+#tabbrowser-tabs {
   --tab-min-height: var(--pf-tab-height);
-  --tab-block-margin: var(--pf-navbar-padding-block);
-}
-#tabbrowser-tabs[orient="vertical"] {
-  grid-gap: var(--tab-block-margin) !important;
-  --tab-min-height: var(--pf-tab-height);
-  --tab-collapsed-background-width: var(--pf-tab-height);
-  --tab-inner-inline-margin: var(--pf-separation) !important;
-  --tab-collapsed-width: calc(var(--tab-collapsed-background-width) + 2 * var(--tab-inner-inline-margin));
-  --tab-inline-padding: calc(var(--pf-separation) + (var(--tab-min-height) - var(--icon-size)) / 2) !important;
   --tab-icon-end-margin: calc((var(--tab-min-height) - var(--icon-size)) / 2) !important;
-  --tab-new-tab-border-width: calc(100% - (var(--tab-inner-inline-margin) * 2));
 
+  /* tabs: horizontal layout */
+  &[orient="horizontal"] {
+    --tab-block-margin: var(--pf-navbar-padding-block);
+    --tab-inline-padding: var(--tab-icon-end-margin) !important;
+
+    .tabbrowser-tab[selected] {
+      --tab-min-width-pref: 150px;
+    }
+    .tab-background:not([selected]) {
+      background-color: var(--pf-toolbar-bgcolor-inactive);
+    }
+    #tabbrowser-arrowscrollbox-periphery {
+      margin-left: var(--pf-toolbaritem-gap);
+      padding-block: var(--pf-navbar-padding-block);
+    }
+  }
+  /* tabs: vertical layout */
+  &[orient="vertical"] {
+    grid-gap: var(--tab-block-margin) !important;
+    --tab-collapsed-background-width: var(--pf-tab-height);
+    --tab-inner-inline-margin: var(--pf-separation) !important;
+    --tab-collapsed-width: calc(var(--tab-collapsed-background-width) + 2 * var(--tab-inner-inline-margin));
+    --tab-inline-padding: calc(var(--tab-icon-end-margin) + var(--pf-separation)) !important;
+    --tab-new-tab-border-width: calc(100% - (var(--tab-inner-inline-margin) * 2));
+
+    /* tabs: new tab button */
+    #tabs-newtab-button,
+    #vertical-tabs-newtab-button {
+      position: relative;
+      color: var(--toolbarbutton-icon-fill) !important;
+      --toolbarbutton-icon-fill: color-mix(in srgb, var(--pf-text-color), transparent 50%);
+    }
+    #tabbrowser-arrowscrollbox-periphery {
+      margin-top: var(--tab-block-margin);
+      padding-top: calc(var(--tab-block-margin) + 1px);
+    }
+    &:not([overflow]) #tabs-newtab-button::before {
+      content: "";
+      width: var(--tab-new-tab-border-width);
+      border-top: 1px solid var(--pf-border-color-light);
+      position: absolute;
+      top: calc(-1px - (var(--tab-block-margin) * 2));
+    }
+    #vertical-tabs-newtab-button {
+      margin-top: calc(var(--tab-block-margin) * 2) !important;
+
+      &::before {
+        content: "";
+        width: calc(100% + (var(--tab-inner-inline-margin) * 2));
+        position: absolute;
+        top: calc(0px - (var(--tab-block-margin) * 3));
+        border-top: 1px solid var(--pf-border-color-light);
+        transition: width var(--pf-ts-15);
+      }
+      #tabbrowser-arrowscrollbox[overflowing][scrolledtoend] + &::before {
+        width: var(--tab-new-tab-border-width);
+      }
+    }
+  }
   .tabbrowser-tab {
     padding-block: 0 !important;
   }
-  /* tabs: new tab button */
-  #tabs-newtab-button,
-  #vertical-tabs-newtab-button {
-    position: relative;
-    color: var(--toolbarbutton-icon-fill) !important;
-    --toolbarbutton-icon-fill: color-mix(in srgb, var(--pf-text-color), transparent 50%);
-  }
-  #tabbrowser-arrowscrollbox-periphery {
-    margin-top: var(--tab-block-margin);
-    padding-top: calc(var(--tab-block-margin) + 1px);
-  }
-  &:not([overflow]) #tabs-newtab-button::before {
-    content: "";
-    width: var(--tab-new-tab-border-width);
-    border-top: 1px solid var(--pf-border-color-light);
-    position: absolute;
-    top: calc(-1px - (var(--tab-block-margin) * 2));
-  }
-  #vertical-tabs-newtab-button {
-    margin-top: calc(var(--tab-block-margin) * 2) !important;
-
-    &::before {
-      content: "";
-      width: calc(100% + (var(--tab-inner-inline-margin) * 2));
-      position: absolute;
-      top: calc(0px - (var(--tab-block-margin) * 3));
-      border-top: 1px solid var(--pf-border-color-light);
-      transition: width var(--pf-ts-15);
-    }
-    #tabbrowser-arrowscrollbox[overflowing][scrolledtoend] + &::before {
-      width: var(--tab-new-tab-border-width);
-    }
-  }
 }
-
 /* tabs: overflow */
-spacer[part="overflow-start-indicator"] {
-  background-image: none !important;
-  border-top: 1px solid var(--pf-border-color-light);
+spacer:is([part="overflow-start-indicator"], [part="overflow-end-indicator"]) {
+  border-inline: 0 !important;
 }
-spacer[part="overflow-end-indicator"],
-#tabbrowser-tabs[orient="vertical"]::after {
-  visibility: collapse;
+@media -moz-pref("sidebar.verticalTabs") {
+  spacer[part="overflow-start-indicator"] {
+    background-image: none !important;
+    border-top: 1px solid var(--pf-border-color-light);
+  }
+  spacer[part="overflow-end-indicator"],
+  #tabbrowser-tabs[orient="vertical"]::after {
+    visibility: collapse;
+  }
 }
 
 /* tabs: general */
@@ -223,6 +243,9 @@ spacer[part="overflow-end-indicator"],
     }
   }
 }
+#tabbrowser-tabs[orient="horizontal"] .tab-context-line {
+  height: 1px !important;
+}
 
 /* tabs: groups */
 #tabbrowser-tabs[orient="vertical"] {
@@ -346,7 +369,29 @@ spacer[part="overflow-end-indicator"],
       fill-opacity: 1;
     }
   }
-  .tab-group-overflow-count-container {
-    display: none !important;
+}
+#tabbrowser-tabs[orient="horizontal"] {
+  tab-group {
+    --tab-group-line-color: color-mix(in srgb, light-dark(var(--tab-group-color), var(--tab-group-color-invert)), transparent 60%) !important;
+    --tab-group-line-thickness: 1px;
   }
+  .tab-group-label-hover-highlight {
+    --tab-hover-background-color: transparent;
+  }
+  .tab-group-label {
+    background-color: color-mix(in srgb, light-dark(var(--tab-group-color), var(--tab-group-color-invert)), transparent 87%) !important;
+    color: light-dark(var(--tab-group-color), var(--tab-group-color-invert)) !important;
+    outline: none !important;
+    transition: all var(--pf-ts-15) !important;
+    --tab-border-radius: var(--pf-border-radius-md);
+    --tab-group-label-padding: 10px;
+    --tab-group-label-height: calc(var(--tab-min-height) - var(--pf-navbar-padding-block));
+    
+    &:hover {
+      background-color: color-mix(in srgb, light-dark(var(--tab-group-color), var(--tab-group-color-invert)), transparent 80%) !important;
+    }
+  }
+}
+.tab-group-overflow-count-container {
+  display: none !important;
 }

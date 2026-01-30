@@ -26,6 +26,7 @@
   --pf-findbar-width: 320px;
   --pf-extensions-width: 228px;
   --pf-tab-group-preview-width: 260px;
+  --pf-wc-gap: 0px;
 
   /* corner radii */
   --pf-border-radius-md: 12px;
@@ -95,18 +96,19 @@
   --pf-background-filter: blur(8px);
   --pf-acrylic-filter: blur(72px) brightness(1.6) saturate(1.4);
 
-  /* density: compact mode */
-  &[uidensity="compact"] {
-    --pf-tab-height: 32px;
-    --pf-pinned-height: 40px;
-    --pf-toolbaritem-size: 28px;
-    --pf-urlbar-height: 32px;
-    --pf-urlbar-sr-height: 32px;
-  }
-  /* density: touch mode */
-  &[uidensity="touch"] {
-    --pf-tab-height: 40px;
-    --pf-toolbaritem-size: 34px;
+  /* densities */
+  @media -moz-pref("sidebar.verticalTabs") {
+    &[uidensity="compact"] {
+      --pf-tab-height: 32px;
+      --pf-pinned-height: 40px;
+      --pf-toolbaritem-size: 28px;
+      --pf-urlbar-height: 32px;
+      --pf-urlbar-sr-height: 32px;
+    }
+    &[uidensity="touch"] {
+      --pf-tab-height: 40px;
+      --pf-toolbaritem-size: 34px;
+    }
   }
 
   /* horizontal layout */
@@ -116,6 +118,11 @@
     --pf-urlbar-height: 32px;
     --pf-tl-padding-left: 16px;
     --pf-tl-padding-right: 10px;
+
+    &:not([customtitlebar]) {
+      --pf-tl-padding-left: var(--pf-separation);
+      --pf-tl-padding-right: 0px;
+    }
   }
 
   /* popup windows and taskbar tabs */
@@ -156,7 +163,7 @@
   }
 
   /* browser radius */
-  @media (-moz-platform: windows) { --pf-window-radius: 8px; }
+  @media (-moz-platform: windows) { --pf-window-radius: 8px; --pf-wc-gap: 138px; }
   @media (-moz-platform: macos) or (-moz-gtk-theme-family: adwaita) or (-moz-gtk-theme-family: yaru) { --pf-window-radius: 12px; }
   @media (-moz-mac-tahoe-theme) { --pf-window-radius: 16px; }
 

@@ -36,6 +36,7 @@ user_pref("parfait.theme.roundness.preset", 1);
 /* toolbar */
 user_pref("parfait.toolbar.sidebar-gutter", true);
 user_pref("parfait.toolbar.unified-sidebar", true);
+user_pref("parfait.toolbar.force-hl-layout", false);
 
 /* traffic lights */
 user_pref("parfait.traffic-lights.enabled", false);
