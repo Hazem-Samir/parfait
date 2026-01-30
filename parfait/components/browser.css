@@ -43,6 +43,11 @@
     appearance: -moz-sidebar !important;
   }
 }
+@media (-moz-platform: windows) {
+  input::selection {
+    background: color-mix(in srgb, var(--pf-accent-color), transparent 70%);
+  }
+}
 
 /* lwt theming */
 :root[lwtheme] {
