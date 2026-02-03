@@ -242,6 +242,7 @@
     --color-accent-primary-hover: color-mix(in srgb, var(--pf-accent-text-color), black 8%) !important;
     --color-accent-primary-active: color-mix(in srgb, var(--pf-accent-text-color), black 16%) !important;
     --link-color: var(--pf-accent-text-color) !important;
+    --tab-loading-fill: var(--pf-accent-text-color) !important;
     --toolbarbutton-icon-fill: var(--pf-icon-color) !important;
     --toolbarbutton-icon-fill-attention: var(--pf-accent-text-color) !important;
   }
