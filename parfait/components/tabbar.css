@@ -319,6 +319,7 @@ spacer:is([part="overflow-start-indicator"], [part="overflow-end-indicator"]) {
     height: var(--tab-min-height) !important;
     margin: 0 !important;
     padding-inline: 0 !important;
+    border-radius: var(--tab-border-radius) !important;
     line-height: unset !important;
     background-color: transparent !important;
     color: var(--pf-text-color) !important;
@@ -329,7 +330,7 @@ spacer:is([part="overflow-start-indicator"], [part="overflow-end-indicator"]) {
     /* tg: folder icon */
     &::before {
       content: "";
-      width: 22px;
+      min-width: 22px;
       height: 22px;
       margin-inline: calc((var(--tab-min-height) - 22px) / 2);
       background: no-repeat 0 0 / 22px var(--pf-icon-folder-out);

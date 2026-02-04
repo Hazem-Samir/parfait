@@ -364,6 +364,7 @@ moz-button[view="viewCustomizeSidebar"] { order: 99; }
       }
     }
     .tab-group-label {
+      width: calc(var(--pf-sidebar-width) - (var(--tab-inner-inline-margin) * 2)) !important;
       font-size-adjust: unset !important;
     }
     .tab-group-label-container,
