@@ -1,60 +1,56 @@
-/*
+/* 
   Parfait - urlbar.css
   https://github.com/reizumii/parfait
 */
 
 /* urlbar */
-#urlbar:not([open]) {
-  height: var(--urlbar-height) !important;
-  min-height: unset !important;
-  --urlbar-height: var(--pf-urlbar-height) !important;
-
-  .urlbar-background {
-    border: 0 !important;
-    outline: none !important;
-    --toolbar-field-background-color: var(--pf-toolbar-bgcolor);
-    --toolbarbutton-border-radius: var(--pf-border-radius-md);
-
-    #urlbar:not([focused]) & {
-      transition: background-color var(--pf-ts-25);
-    }
-    #urlbar:hover & {
-      --toolbar-field-background-color: var(--pf-toolbar-bgcolor-hover);
-    }
-  }
-}
 :root:not([customizing]) {
   --pf-urlbar-x: var(--pf-separation);
-  --pf-urlbar-y: var(--pf-navbar-height);
+  --pf-urlbar-y: var(--pf-topbar-height);
 
+  #urlbar:not([open]) {
+    height: var(--pf-urlbar-height) !important;
+    
+    .urlbar-background {
+      border: 0 !important;
+      border-radius: var(--pf-border-radius) !important;
+      transition: background-color var(--pf-ts-25);
+      --toolbar-field-background-color: var(--pf-toolbar-bgcolor);
+      --toolbar-field-color: var(--lwt-text-color);
+
+      #urlbar:hover & {
+        --toolbar-field-background-color: var(--pf-toolbar-bgcolor-hover);
+      }
+    }
+    &[focused] .urlbar-background {
+      box-shadow: inset 0 0 0 1px var(--pf-accent-color), 0 0 0 2px color-mix(in srgb, var(--pf-accent-color), transparent 50%) !important;
+      outline: none !important;
+    }
+  }
   /* mini urlbar */
-  &:not([chromehidden~="toolbar"], [taskbartab]) {
-    @media -moz-pref("sidebar.verticalTabs") and -moz-pref("parfait.toolbar.unified-sidebar") and (not -moz-pref("sidebar.visibility", "expand-on-hover")) {
+  @media -moz-pref("sidebar.verticalTabs") and -moz-pref("parfait.toolbar.unified-sidebar") and (not -moz-pref("sidebar.visibility", "expand-on-hover")) {
+    #urlbar:not([open]),
+    #urlbar-container::before {
+      position: fixed !important;
+      left: var(--pf-urlbar-x) !important;
+      top: var(--pf-urlbar-y) !important;
+      width: calc(var(--pf-sidebar-width) - (var(--pf-separation) * 2)) !important;
+      max-width: calc(var(--pf-sidebar-width) - (var(--pf-separation) * 2)) !important;
+    }
+    /* allow top bar dragging */
+    #urlbar-container { -moz-window-dragging: drag; }
+  }
+  @media -moz-pref("sidebar.verticalTabs") and -moz-pref("sidebar.visibility", "always-show") {
+    &:has(#tabbrowser-tabs:not([expanded])) {
       #urlbar:not([open]),
       #urlbar-container::before {
-        position: fixed !important;
-        left: var(--pf-urlbar-x) !important;
-        top: var(--pf-urlbar-y) !important;
-        width: calc(var(--pf-sidebar-width) - (var(--pf-separation) * 2)) !important;
-        max-width: calc(var(--pf-sidebar-width) - (var(--pf-separation) * 2)) !important;
-      }
-      /* allow top bar dragging */
-      #urlbar-container { -moz-window-dragging: drag; }
-    }
-    @media -moz-pref("sidebar.verticalTabs") and -moz-pref("sidebar.visibility", "always-show") {
-      &:has(#tabbrowser-tabs:not([expanded])) {
-        #urlbar:not([open]),
-        #urlbar-container::before {
-          inset: unset !important;
-          width: var(--urlbar-width, 100%) !important;
-          max-width: unset !important;
-        }
+        inset: unset !important;
+        width: var(--urlbar-width) !important;
+        max-width: unset !important;
       }
     }
   }
   #urlbar:not([open]) {
-    --urlbar-inner-border-radius: max(var(--pf-border-radius-sm), calc(var(--pf-border-radius-md) - 3px));
-
     /* urlbar items */
     #userContext-label,
     #identity-box:not([pageproxystate="invalid"]):not(.notSecure) #identity-icon-box:not([open]),
@@ -108,15 +104,14 @@
     width: 90vw !important;
     max-width: var(--pf-urlbar-width-max) !important;
     border-radius: var(--pf-urlbar-fl-radius);
-    --urlbar-inner-border-radius: calc(var(--pf-urlbar-sr-radius) - 2px);
     --inactive-titlebar-opacity: 1;
 
     .urlbar-background {
-      box-shadow: var(--pf-urlbar-border), var(--pf-shadow-lg) !important;
+      border-radius: var(--pf-urlbar-fl-radius) !important;
+      box-shadow: var(--pf-urlbar-border), var(--pf-shadow-large) !important;
       border: 0 !important;
       transition: none !important;
       --toolbar-field-focus-background-color: var(--pf-urlbar-bgcolor);
-      --toolbarbutton-border-radius: var(--pf-urlbar-fl-radius);
     }
     @media -moz-pref("parfait.blur.enabled") {
       backdrop-filter: var(--pf-acrylic-filter);
@@ -140,11 +135,11 @@
       margin-inline: 1px 10px !important;
     }
     #userContext-icons {
-      background-color: color-mix(in srgb, var(--identity-tab-color), transparent 85%);
+      background-color: color-mix(in srgb, var(--identity-tab-color), transparent 80%);
       color: color-mix(in srgb, var(--identity-icon-color), var(--pf-text-color));
       margin-inline-end: 0 !important;
-      padding: 6px 10px;
-      border-radius: var(--urlbar-inner-border-radius);
+      padding: 6px 8px;
+      border-radius: var(--pf-border-radius-small);
 
       #userContext-label {
         font-size: 1rem !important;
@@ -168,20 +163,6 @@
       }
     }
   }
-  /* move and hide stuff */
-  #identity-box {
-    margin-inline-end: 0 !important;
-    order: 1;
-  }
-  #tracking-protection-icon-container {
-    order: 1 !important;
-  }
-  #translations-button-locale,
-  #identity-icon-label,
-  #urlbar-label-box,
-  #identity-permission-box > #blocked-permissions-container {
-    display: none;
-  }
   /* fu: urlbar skeleton */
   #urlbar-container:has(> #urlbar:is([open]))::before {
     content: "";
@@ -189,7 +170,7 @@
     height: var(--pf-urlbar-height);
     background-color: var(--pf-toolbar-bgcolor-inactive) !important;
     border: 1px dashed var(--pf-toolbar-bgcolor-active) !important;
-    border-radius: var(--pf-border-radius-md);
+    border-radius: var(--pf-border-radius);
     pointer-events: none;
     box-sizing: border-box;
   }
@@ -197,19 +178,6 @@
     &:has(#tabbrowser-tabs:not([expanded])) #urlbar-container::before {
       position: unset !important;
       width: 100% !important;
-    }
-  }
-}
-/* urlbar: horizontal layout */
-@media not -moz-pref("sidebar.verticalTabs") {
-  #urlbar-container::before {
-    border-radius: var(--pf-border-radius-hl) !important;
-  }
-  #urlbar:not([open]) {
-    --urlbar-inner-border-radius: max(var(--pf-border-radius-sm), calc(var(--pf-border-radius-hl) - 3px));
-
-    .urlbar-background {
-      --toolbarbutton-border-radius: var(--pf-border-radius-hl);
     }
   }
 }
@@ -233,13 +201,13 @@
 }
 /* search results */
 .urlbarView-row {
-  border-radius: var(--pf-urlbar-sr-radius) !important;
+  border-radius: var(--pf-urlbar-result-radius) !important;
   --urlbarView-highlight-background: var(--pf-toolbar-bgcolor-active) !important;
   --urlbarView-highlight-color: currentColor;
 
   @media not -moz-pref("parfait.urlbar.results.compact") {
     &:not([type="tip"], [type="dynamic"]) {
-      min-height: var(--pf-urlbar-sr-height) !important;
+      min-height: var(--pf-urlbar-result-height) !important;
     }
   }
   .urlbarView-row-inner {
@@ -283,15 +251,6 @@
       display: none;
     }
   }
-  /* sr: tab to search */
-  &[type="tabtosearch"] {
-    .urlbarView-title {
-      font-weight: 600;
-    }
-    .urlbarView-action {
-      display: none !important;
-    }
-  }
   /* sr: switch tab */
   &[type="switchtab"] {
     .urlbarView-no-wrap {
@@ -316,9 +275,10 @@
         margin-inline-start: 8px;
         background: center no-repeat var(--pf-icon-arrow-right-short), var(--pf-toolbar-bgcolor);
         color: var(--pf-text-color);
-        border-radius: calc(var(--pf-urlbar-sr-radius) - 4px);
+        border-radius: calc(var(--pf-urlbar-result-radius) - 4px);
       }
     }
+    /* sr: selected item */
     &[selected] {
       .urlbarView-switchToTab {
         color: var(--pf-text-color);
@@ -353,7 +313,7 @@
   }
   /* sr: calculator, unit conversion */
   &:is([dynamicType="calculator"], [dynamicType="unitConversion"]) {
-    min-height: var(--pf-urlbar-sr-height) !important;
+    min-height: var(--pf-urlbar-result-height) !important;
 
     .urlbarView-dynamic-calculator-input,
     .urlbarView-dynamic-unitConversion-output {
@@ -366,23 +326,18 @@
   }
   /* sr: icons */
   .urlbarView-favicon {
-    border-radius: var(--pf-favicon-radius);
+    border-radius: 4px;
 
     &[src^="chrome://"] {
-      fill-opacity: 0.8;
+      fill: var(--pf-icon-color);
+      fill-opacity: 1;
     }
     &[src="chrome://global/skin/icons/search-glass.svg"] {
       content: var(--pf-icon-search);
-      fill-opacity: 0.5;
+      fill-opacity: 0.75;
     }
     &[src="chrome://global/skin/icons/edit-copy.svg"] {
       content: var(--pf-icon-copy);
-    }
-    &[src="chrome://browser/skin/bookmark.svg"] {
-      content: url(chrome://browser/skin/bookmark-hollow.svg);
-    }
-    &[src="chrome://browser/skin/tabs.svg"] {
-      content: var(--pf-icon-tabs);
     }
   }
   .urlbarView-button {
@@ -392,29 +347,58 @@
     border: none !important;
   }
 }
-/* urlbar icons */
-.urlbar-icon,
-#identity-box,
-#trust-icon-container,
-#notification-popup-box,
+/* move and hide stuff */
+#identity-box {
+  margin-inline-end: 0 !important;
+  order: 1;
+}
 #tracking-protection-icon-container {
+  order: 1 !important;
+}
+#translations-button-locale,
+#identity-icon-label,
+#urlbar-label-box,
+#identity-permission-box > #blocked-permissions-container {
+  display: none;
+}
+/* urlbar icons */
+.urlbar-icon {
   fill: var(--pf-icon-color) !important;
-  filter: unset !important;
   --urlbar-icon-fill-opacity: 1;
 }
 #identity-box[pageproxystate="valid"]:is(.notSecureText, .chromeUI, a.extensionPage) > .identity-box-button {
   padding-inline: var(--urlbar-icon-padding) !important;
 }
+#identity-box[pageproxystate="valid"]:is(.notSecure, .mixedActiveContent, .httpsOnlyErrorPage) #identity-icon {
+  list-style-image: url("chrome://devtools/skin/images/alert.svg") !important;
+  fill: light-dark(var(--color-red-50), var(--color-red-30));
+}
 .urlbar-page-action,
 .urlbar-revert-button,
 .urlbar-go-button,
 .search-go-button,
-#trust-icon-container,
 #tracking-protection-icon-container,
 #identity-box {
   margin-block: 2px;
 }
+.urlbar-go-button,
+.search-go-button {
+  list-style-image: var(--pf-icon-arrow-right-short) !important;
+}
+#taskbar-tabs-button > .urlbar-icon {
+  list-style-image: var(--pf-icon-install) !important;
+
+  :root[taskbartab] & {
+    list-style-image: var(--pf-icon-uninstall) !important;
+  }
+}
+#pageAction-urlbar-_testpilot-containers {
+  --pageAction-image: var(--pf-icon-container-open) !important;
+}
 /* ui: translations */
+#translations-button-icon {
+  list-style-image: var(--pf-icon-translate) !important;
+}
 #translations-button[translationsactive] {
   order: 98;
 }
@@ -423,7 +407,7 @@
 }
 #translations-button-circle-arrows {
   transition: all var(--pf-ts-15);
-
+  
   &[hidden] {
     display: unset;
     width: 0 !important;
@@ -431,7 +415,7 @@
 }
 /* ui: zoom */
 #urlbar-zoom-button {
-  min-height: 16px;
+  min-height: var(--pf-icon-size);
   margin: 0 !important;
   padding: 4px 8px !important;
   order: 99;
@@ -442,7 +426,7 @@
 #urlbar-searchmode-switcher {
   margin: 2px 0 2px 2px !important;
   padding: var(--urlbar-searchmodeswitcher-inline-padding) !important;
-  border-radius: var(--urlbar-inner-border-radius) !important;
+  border-radius: var(--pf-border-radius-small) !important;
   --urlbar-box-bgcolor: transparent;
   --urlbar-box-focus-bgcolor: transparent;
 
@@ -452,7 +436,8 @@
   }
   .searchmode-switcher-icon {
     list-style-image: var(--pf-icon-search) !important;
-    opacity: 0.5;
+    fill: var(--pf-icon-color) !important;
+    opacity: 0.75;
   }
   .searchmode-switcher-dropmarker { display: none; }
 }
@@ -469,7 +454,6 @@
   .searchmode-switcher-title {
     font-size: 12px;
     font-weight: 600;
-    --urlbar-searchmodeswitcher-inline-padding: 0;
   }
   #urlbar[open] & {
     padding-inline: 12px !important;
@@ -486,7 +470,7 @@
     transition: var(--pf-ts-15);
   }
   &:hover .searchmode-switcher-close {
-    width: var(--icon-size) !important;
+    width: 16px !important;
     margin-inline: 4px -4px !important;
     opacity: 1;
   }

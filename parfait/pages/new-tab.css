@@ -1,4 +1,4 @@
-/*
+/* 
   Parfait Pages - new-tab.css
   https://github.com/reizumii/parfait
 */
@@ -9,7 +9,7 @@
     --pf-bg-blur: blur(64px);
     --pf-border-color: light-dark(rgba(21, 21, 21, 0.15), rgba(255, 255, 255, 0.125)) !important;
     --pf-border-color-alt: light-dark(rgba(21, 21, 21, 0.075), rgba(255, 255, 255, 0.075)) !important;
-
+    
     --newtab-background-color-secondary: light-dark(rgba(255, 255, 255, 0.75), rgba(21, 21, 21, 0.7)) !important;
     --newtab-border-color: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.08)) !important;
     --newtab-overlay-color: rgba(21, 21, 21, 0.5) !important;
@@ -17,7 +17,7 @@
     --color-accent-primary: var(--pf-accent-color) !important;
     --color-accent-primary-hover: color-mix(in srgb, var(--pf-accent-color), black 10%) !important;
     --color-accent-primary-active: color-mix(in srgb, var(--pf-accent-color), black 20%) !important;
-
+    
     --border-radius-small: 8px !important;
     --border-radius-medium: 12px !important;
   }
@@ -39,7 +39,7 @@
     border: 1px solid var(--pf-border-color-alt) !important;
     fill-opacity: 0.75;
     -moz-context-properties: fill, fill-opacity !important;
-    --border-radius-medium: 99px !important;
+    --border-radius-medium: 99px !important; 
     --newtab-search-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='context-fill' fill-opacity='context-fill-opacity' viewBox='0 0 16 16'%3E%3Cpath d='M7.625 2a5.5 5.5 0 0 1 4.382 8.821l1.648 1.649a.75.75 0 1 1-1.06 1.06l-1.649-1.648A5.5 5.5 0 1 1 7.625 2m0 1.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8'/%3E%3C/svg%3E") !important;
   }
   .top-site-outer {
@@ -101,7 +101,7 @@
       margin-inline: auto;
       background-size: 100%;
       background-position: center;
-
+      
       @media -moz-pref("parfait.new-tab.logo", 2) {
         background-image: url("../assets/logo/logo.png");
       }
@@ -121,7 +121,7 @@
     transition-timing-function: cubic-bezier(0.125, 1.125, 0.25, 1.0125) !important;
     --border-radius-small: 99px;
     --button-full-width: var(--button-collapsed-width) !important;
-
+    
     &:hover {
       opacity: 1;
       transform: scale(1.1);
@@ -200,7 +200,7 @@
     box-shadow: inset 0 0 0 1px var(--pf-border-color) !important;
     transition: all 0.15s !important;
     --border-radius-medium: 8px;
-
+    
     &:hover:active {
       transform: scale(1.025);
     }
@@ -208,7 +208,7 @@
   #custom-wallpaper {
     box-shadow: none !important;
     --border-color-default: var(--pf-border-color);
-
+    
     &::after {
       opacity: 0.5;
     }
@@ -268,7 +268,7 @@
     --toggle-height: 20px;
     --toggle-background-color: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.04));
     --toggle-border-color: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.15));
-
+    
     &::before {
       --toggle-dot-width: 12px;
       --toggle-dot-height: 12px;
@@ -289,7 +289,7 @@
     --link-color: color-mix(in srgb, currentColor, transparent 30%);
     --link-color-hover: color-mix(in srgb, currentColor, transparent 20%);
     --border-radius-small: 6px;
-
+    
     &:hover {
       background-color: color-mix(in srgb, currentColor, transparent 90%) !important;
     }
