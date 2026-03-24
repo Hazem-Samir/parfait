@@ -556,7 +556,7 @@ notification-message {
   border-radius: var(--pf-border-radius-md) !important;
 
   .ctrlTab-preview:focus & {
-    background-color: var(--toolbarbutton-hover-background) !important;
+    background-color: var(--pf-toolbar-bgcolor-active) !important;
   }
 }
 .ctrlTab-canvas {

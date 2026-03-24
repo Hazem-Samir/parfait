@@ -219,10 +219,7 @@ toolbarbutton.bookmark-item:not(.subviewbutton) {
     #urlbar-container + toolbarspring + #downloads-button {
       margin-right: calc(var(--pf-separation) - var(--pf-toolbaritem-gap)) !important;
     }
-    .titlebar-spacer {
-      display: none;
-    }
-    &:not([customizing]) toolbarspring {
+    &:not([customizing]) :is(.titlebar-spacer, toolbarspring) {
       display: none;
     }
     :is(toolbarbutton, toolbarpaletteitem) ~ #tabbrowser-tabs {
