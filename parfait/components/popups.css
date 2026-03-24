@@ -448,6 +448,9 @@ panel toolbarseparator {
   --menuitem-max-width: var(--pf-tab-group-preview-width);
 }
 
+/* tab preview */
+.tab-preview-content-interactive { display: none !important; }
+
 /* modal */
 #window-modal-dialog {
   animation: dialog var(--pf-ts-25);
