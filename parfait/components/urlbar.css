@@ -243,7 +243,7 @@
   --urlbarView-highlight-background: var(--pf-toolbar-bgcolor-active) !important;
   --urlbarView-highlight-color: currentColor;
 
-  @media not -moz-pref("parfait.urlbar.results.compact") {
+  @media (not -moz-pref("browser.uidensity", 1)) and (not -moz-pref("parfait.urlbar.results.compact")) {
     &:not([type="tip"], [type="dynamic"]) {
       min-height: var(--pf-urlbar-sr-height) !important;
     }

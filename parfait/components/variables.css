@@ -99,27 +99,23 @@
   --pf-acrylic-filter: blur(72px) brightness(1.6) saturate(1.4);
 
   /* densities */
+  &[uidensity="compact"] { --pf-toolbaritem-size: 28px; }
+  &[uidensity="touch"] { --pf-toolbaritem-size: 34px; }
+
   @media -moz-pref("sidebar.verticalTabs") {
     &[uidensity="compact"] {
       --pf-tab-height: 32px;
       --pf-pinned-height: 40px;
-      --pf-toolbaritem-size: 28px;
       --pf-urlbar-height: 32px;
-      --pf-urlbar-sr-height: 32px;
     }
-    &[uidensity="touch"] {
-      --pf-tab-height: 40px;
-      --pf-toolbaritem-size: 34px;
-    }
+    &[uidensity="touch"] { --pf-tab-height: 40px; }
   }
-
   /* horizontal layout */
   @media not -moz-pref("sidebar.verticalTabs") {
-    --pf-tab-height: 32px;
-    --pf-toolbaritem-size: 32px;
-    --pf-urlbar-height: 32px;
     --pf-tl-padding-left: 16px;
     --pf-tl-padding-right: 10px;
+    --pf-tab-height: var(--pf-toolbaritem-size);
+    --pf-urlbar-height: var(--pf-toolbaritem-size);
 
     &:not([customtitlebar]) {
       --pf-tl-padding-left: var(--pf-separation);
