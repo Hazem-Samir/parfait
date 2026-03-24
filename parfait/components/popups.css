@@ -428,13 +428,17 @@ panel toolbarseparator {
 @media -moz-pref("sidebar.verticalTabs") {
   .all-tabs-button.tab-group-icon {
     list-style-image: var(--pf-icon-folder) !important;
-    --tab-group-color-pale: var(--tab-group-color);
+    --menuitem-icon-fill: light-dark(var(--tab-group-color), var(--tab-group-color-invert)) !important;
 
     &:not([class~="all-tabs-group-action-button"], .tab-group-icon-collapsed) {
       list-style-image: var(--pf-icon-folder-open) !important;
     }
+    &.tab-group-icon-closed {
+      list-style-image: url("chrome://global/skin/icons/folder.svg") !important;
+    }
     @media not -moz-pref("parfait.tabs.groups.color") {
       --tab-group-color: var(--toolbar-color);
+      --tab-group-color-invert: var(--toolbar-color);
     }
   }
 }
