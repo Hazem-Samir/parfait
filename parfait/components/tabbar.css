@@ -18,7 +18,11 @@
     .tabbrowser-tab[selected] {
       --tab-min-width-pref: 150px;
     }
-    .tab-background:not([selected]) {
+    tab-split-view-wrapper .tabbrowser-tab[selected] {
+      --tab-min-width-pref: unset;
+    }
+    .tab-background:not([selected]),
+    tab-split-view-wrapper {
       background-color: var(--pf-toolbar-bgcolor-inactive);
     }
     #tabbrowser-arrowscrollbox-periphery {

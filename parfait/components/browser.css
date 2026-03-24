@@ -120,8 +120,39 @@
     overflow: clip;
     -moz-window-dragging: no-drag;
   }
-  @media -moz-pref("sidebar.verticalTabs") and -moz-pref("parfait.window.borderless") {
-    #nav-bar::before {
+  /* split view */
+  #tabbrowser-tabpanels[splitview] {
+    .split-view-splitter {
+      background-color: transparent !important;
+      border: none !important;
+      min-width: var(--pf-split-resize-padding) !important;
+    }
+    .split-view-panel {
+      margin: 0 !important;
+      overflow: unset !important;
+
+      &[column="1"]::after {
+        content: "";
+        width: 2px;
+        height: 96px;
+        background-color: var(--pf-split-indicator-bg, transparent);
+        border-radius: 4px;
+        position: absolute;
+        left: calc(-1px - (var(--pf-split-resize-padding) / 2));
+        top: calc(50% - (96px / 2));
+        pointer-events: none;
+        transition: background-color var(--pf-ts-15);
+      }
+      &:not(.deck-selected) > .browserContainer { outline: none !important; }
+      &.deck-selected > .browserContainer { outline-color: var(--pf-accent-color) !important; }
+    }
+    &:has(.split-view-splitter:hover) {
+      --pf-split-indicator-bg: light-dark(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.175));
+    }
+    split-view-footer { display: none !important; }
+  }
+  @media -moz-pref("parfait.toolbar.unified-sidebar") and -moz-pref("parfait.window.borderless") {
+    #navigator-toolbox[tabs-hidden] > #nav-bar::before {
       content: "";
       width: calc(100% - var(--pf-sidebar-width));
       height: var(--pf-browser-separation);
