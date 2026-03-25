@@ -19,6 +19,8 @@
     --color-accent-primary: var(--pf-accent-color) !important;
     --color-accent-primary-hover: color-mix(in srgb, var(--pf-accent-color), black 10%) !important;
     --color-accent-primary-active: color-mix(in srgb, var(--pf-accent-color), black 20%) !important;
+    --border-color: var(--pf-border-color) !important;
+    --border-color-interactive: var(--pf-border-color) !important;
     --border-radius-small: 8px !important;
     --border-radius-medium: 12px !important;
 
@@ -322,12 +324,11 @@
   /* edit shortcut */
   .edit-topsites-wrapper .modal {
     width: fit-content !important;
-    border-radius: var(--border-radius-medium) !important;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.125) !important;
-    backdrop-filter: var(--pf-bg-blur);
+  }
+  .edit-topsites-wrapper dialog {
+    transform-origin: top center;
     animation: modal var(--pf-ts-25);
     animation-timing-function: cubic-bezier(0.42, 0, 0, 1);
-    transform-origin: top center;
   }
   @keyframes modal {
     0% {
@@ -368,12 +369,13 @@
     text-decoration: none !important;
     color-scheme: light dark;
   }
-  .topsite-form .actions {
+  .topsite-form .actions > moz-button-group {
+    width: 100%;
     justify-content: space-between !important;
   }
-  .topsite-form .actions button {
-    font-size: 14px !important;
-    margin-inline-start: 0 !important;
+  .topsite-form .actions > moz-button-group > moz-button {
+    --button-border-radius: var(--border-radius-small);
+    --button-font-size: 14px;
   }
   /* weather */
   .weatherCard {

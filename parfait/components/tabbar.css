@@ -333,7 +333,7 @@ tab-split-view-wrapper {
       }
     }
     tab-split-view-wrapper {
-      max-height: calc((var(--tab-min-height) + var(--tab-block-margin)) * 2);
+      max-height: calc((var(--tab-min-height) * 2) + 3px);
       margin-left: calc(var(--pf-tab-group-indent-1, 0px) + var(--pf-separation)) !important;
     }
     &[collapsed] > .tabbrowser-tab:not([selected]) {
