@@ -488,12 +488,12 @@ tab-split-view-wrapper {
     inset-block-end: calc((var(--tab-block-margin) / 2) * -1) !important;
   }
 }
-.tab-group-overflow-count-container {
-  display: none !important;
-}
+.tab-group-overflow-count-container { display: none !important }
 
 /* tabs: notes */
-#tabbrowser-tabs:is([orient="horizontal"], [expanded]) .tabbrowser-tab[tab-note]:not([pinned]) .tab-note-icon-overlay {
-  display: revert !important;
+#tabbrowser-tabs:is([orient="horizontal"], [expanded]) .tabbrowser-tab[tab-note]:not([pinned]) {
+  --tab-min-width-extra-icons: 0px !important;
+
+  .tab-note-icon-overlay { display: revert !important; }
 }
 .tab-note-icon { display: none; }
