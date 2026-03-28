@@ -1,4 +1,4 @@
-/* 
+/*
   Parfait - csd.css
   https://github.com/reizumii/parfait
 */
@@ -8,14 +8,14 @@
   display: none;
 }
 #nav-bar > .titlebar-buttonbox-container {
-  height: var(--pf-topbar-height);
+  height: var(--pf-navbar-height);
   visibility: visible !important;
 }
 
 @media -moz-pref("parfait.traffic-lights.enabled") or (-moz-platform: macos) {
   .titlebar-buttonbox-container {
     order: -1 !important;
-    padding-inline: var(--pf-tl-padding);
+    padding-inline: var(--pf-tl-padding-left) var(--pf-tl-padding-right);
     z-index: 2;
   }
   .titlebar-buttonbox {
@@ -59,9 +59,7 @@
       min-width: 12px;
       height: 12px;
       display: block;
-      background-image: var(--pf-tl-button-icon);
-      background-size: 12px;
-      background-position: center;
+      background: var(--pf-tl-button-icon) center / 12px;
       opacity: 0;
     }
     &:-moz-window-inactive {
@@ -71,6 +69,11 @@
   }
   .titlebar-buttonbox:not(:-moz-window-inactive):hover .titlebar-button::before {
     opacity: 0.5;
+  }
+  @media (-moz-platform: linux) {
+    .titlebar-button > .toolbarbutton-icon {
+      background: none !important;
+    }
   }
   /* tl: monochrome buttons */
   @media -moz-pref("parfait.traffic-lights.mono") {

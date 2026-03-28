@@ -1,15 +1,17 @@
-/* 
+/*
   Parfait Pages - new-tab.css
   https://github.com/reizumii/parfait
 */
 
-@-moz-document url(chrome://browser/content/browser.xul), url(about:newtab), url(about:home) {
+@-moz-document url(about:newtab), url(about:home) {
   :root {
     --pf-accent-color: #bb88ee;
     --pf-bg-blur: blur(64px);
     --pf-border-color: light-dark(rgba(21, 21, 21, 0.15), rgba(255, 255, 255, 0.125)) !important;
     --pf-border-color-alt: light-dark(rgba(21, 21, 21, 0.075), rgba(255, 255, 255, 0.075)) !important;
-    
+    --pf-glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.125), inset 0 -1px 0 rgba(34, 34, 34, 0.075), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --pf-ts-25: 0.25s;
+
     --newtab-background-color-secondary: light-dark(rgba(255, 255, 255, 0.75), rgba(21, 21, 21, 0.7)) !important;
     --newtab-border-color: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.08)) !important;
     --newtab-overlay-color: rgba(21, 21, 21, 0.5) !important;
@@ -17,12 +19,15 @@
     --color-accent-primary: var(--pf-accent-color) !important;
     --color-accent-primary-hover: color-mix(in srgb, var(--pf-accent-color), black 10%) !important;
     --color-accent-primary-active: color-mix(in srgb, var(--pf-accent-color), black 20%) !important;
-    
+    --border-color: var(--pf-border-color) !important;
+    --border-color-interactive: var(--pf-border-color) !important;
     --border-radius-small: 8px !important;
     --border-radius-medium: 12px !important;
+
+    @media -moz-pref("parfait.animations.enabled", false) or (prefers-reduced-motion: reduce) { --pf-ts-25: 0s; }
   }
   @media (-moz-platform: windows) {
-    body {
+    body, .search-handoff-button {
       font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif !important;
     }
   }
@@ -32,14 +37,13 @@
       background-repeat: repeat !important;
     }
   }
-  .search-wrapper .search-handoff-button,
-  .search-wrapper input {
+  .search-handoff-button {
     backdrop-filter: var(--pf-bg-blur);
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04), 0 2px 16px rgba(0, 0, 0, 0.08) !important;
     border: 1px solid var(--pf-border-color-alt) !important;
     fill-opacity: 0.75;
     -moz-context-properties: fill, fill-opacity !important;
-    --border-radius-medium: 99px !important; 
+    --box-shadow-level-3: 0 2px 2px rgba(0, 0, 0, 0.04), 0 2px 16px rgba(0, 0, 0, 0.08) !important;
+    --border-radius-medium: 99px !important;
     --newtab-search-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='context-fill' fill-opacity='context-fill-opacity' viewBox='0 0 16 16'%3E%3Cpath d='M7.625 2a5.5 5.5 0 0 1 4.382 8.821l1.648 1.649a.75.75 0 1 1-1.06 1.06l-1.649-1.648A5.5 5.5 0 1 1 7.625 2m0 1.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8'/%3E%3C/svg%3E") !important;
   }
   .top-site-outer {
@@ -49,7 +53,7 @@
     &:hover .tile {
       box-shadow: none !important;
       outline: 6px solid var(--pf-border-color) !important;
-      transition: transform 0.25s;
+      transition: transform var(--pf-ts-25);
     }
     .top-site-button:hover:active .tile {
       transform: scale(0.95);
@@ -59,6 +63,10 @@
     visibility: hidden;
   }
   .top-site-outer .tile {
+    backdrop-filter: blur(12px) brightness(1.175) saturate(1.075);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.125), 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    --newtab-background-card: rgba(255, 255, 255, 0.125);
+    --newtab-background-color-secondary: rgba(255, 255, 255, 0.25);
     --size-item-large: 36px;
     --border-radius-large: var(--border-radius-medium);
   }
@@ -66,10 +74,21 @@
     width: 100% !important;
     height: 100% !important;
   }
+  .top-site-outer .tile .top-site-icon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--pf-glass-shadow);
+  }
   .top-site-outer .tile .top-site-icon:not([style^='background-image: url("moz-page-thumb://']) {
     position: unset !important;
     width: 40px !important;
     height: 40px !important;
+    border-radius: 0 !important;
+  }
+  .top-site-outer .tile .top-site-icon[style^='background-image: url("moz-page-thumb://']::before {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.15), transparent);
   }
   .top-site-outer .title {
     font-family: inherit !important;
@@ -101,7 +120,7 @@
       margin-inline: auto;
       background-size: 100%;
       background-position: center;
-      
+
       @media -moz-pref("parfait.new-tab.logo", 2) {
         background-image: url("../assets/logo/logo.png");
       }
@@ -114,18 +133,19 @@
   .personalize-button {
     background-color: rgba(0, 0, 0, 0.25) !important;
     backdrop-filter: var(--pf-bg-blur);
-    box-shadow: 0 0 0 1px var(--pf-border-color-alt) !important;
+    box-shadow: var(--pf-glass-shadow) !important;
     opacity: 0.5;
     visibility: visible !important;
     transition: all 0.25s !important;
     transition-timing-function: cubic-bezier(0.125, 1.125, 0.25, 1.0125) !important;
     --border-radius-small: 99px;
     --button-full-width: var(--button-collapsed-width) !important;
-    
+
     &:hover {
       opacity: 1;
       transform: scale(1.1);
     }
+    .darkWallpaper & { background-color: rgba(255, 255, 255, 0.125) !important; }
   }
   .personalize-button > div > img {
     --icon-color: #fff;
@@ -134,7 +154,7 @@
     display: none;
   }
   /* customize menu */
-  .customize-menu {
+  .customize-menu-animate-wrapper {
     width: 450px !important;
     height: fit-content !important;
     top: unset !important;
@@ -146,25 +166,14 @@
     border-radius: var(--border-radius-medium);
     box-shadow: none !important;
     backdrop-filter: var(--pf-bg-blur);
-    transition: transform 250ms;
+    transition: transform var(--pf-ts-25);
     transform: scale(0) !important;
     transform-origin: bottom right;
     transition-timing-function: cubic-bezier(0.125, 1.125, 0.25, 1.0125) !important;
     overflow: hidden !important;
   }
-  .customize-animate-enter-active > .customize-menu,
-  .customize-animate-enter-done > .customize-menu,
-  .customize-menu.customize-animate-enter-done,
-  .customize-menu.customize-animate-enter-active {
+  .customize-menu-animate-wrapper:is(.customize-animate-enter-active, .customize-animate-enter-done) {
     transform: scale(1) !important;
-  }
-  .customize-menu-animate-wrapper {
-    width: unset !important;
-    height: unset !important;
-    top: unset !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
-    transform: unset !important;
   }
   .personalize-button.personalize-animate-exit-done {
     transform: scale(0);
@@ -180,6 +189,7 @@
   }
   .home-section .divider {
     margin-inline: -20px !important;
+    --border-color: var(--pf-border-color);
   }
   .home-section .section .selector {
     font-family: inherit;
@@ -200,7 +210,7 @@
     box-shadow: inset 0 0 0 1px var(--pf-border-color) !important;
     transition: all 0.15s !important;
     --border-radius-medium: 8px;
-    
+
     &:hover:active {
       transform: scale(1.025);
     }
@@ -208,7 +218,7 @@
   #custom-wallpaper {
     box-shadow: none !important;
     --border-color-default: var(--pf-border-color);
-    
+
     &::after {
       opacity: 0.5;
     }
@@ -228,6 +238,7 @@
     text-align: left !important;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
     color: #fff;
+    pointer-events: none;
   }
   #custom-wallpaper {
     border-style: solid !important;
@@ -240,22 +251,18 @@
     width: 100% !important;
     height: 100% !important;
     margin: 0 !important;
-    left: 0 !important;
-    transform: translateY(100%) !important;
     backdrop-filter: blur(64px);
     z-index: 2001 !important;
     overflow-y: auto;
-  }
-  .wallpaper-list.category.wallpaper-list-enter-done {
-    transform: translateY(0) !important;
+    --wallpaper-panel-width: 450px !important;
   }
   .wallpaper-list.category fieldset {
-    padding-inline: 20px !important;
+    padding: 0 !important;
     gap: 10px !important;
     grid-auto-rows: 100px !important;
   }
   .arrow-button {
-    margin: 16px !important;
+    margin: 0 0 16px 0 !important;
   }
   /* settings */
   .settings-toggles {
@@ -268,7 +275,7 @@
     --toggle-height: 20px;
     --toggle-background-color: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.04));
     --toggle-border-color: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.15));
-    
+
     &::before {
       --toggle-dot-width: 12px;
       --toggle-dot-height: 12px;
@@ -276,7 +283,7 @@
     }
   }
   .description {
-    --input-space-offset: 52px !important;
+    margin-left: var(--space-medium) !important;
   }
   #settings-link {
     width: calc(100% + 24px);
@@ -289,7 +296,7 @@
     --link-color: color-mix(in srgb, currentColor, transparent 30%);
     --link-color-hover: color-mix(in srgb, currentColor, transparent 20%);
     --border-radius-small: 6px;
-    
+
     &:hover {
       background-color: color-mix(in srgb, currentColor, transparent 90%) !important;
     }
@@ -317,23 +324,20 @@
   /* edit shortcut */
   .edit-topsites-wrapper .modal {
     width: fit-content !important;
-    border-radius: var(--border-radius-medium) !important;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.125) !important;
-    backdrop-filter: var(--pf-bg-blur);
-    animation: modal 0.25s;
-    animation-timing-function: cubic-bezier(0.42, 0, 0, 1);
+  }
+  .edit-topsites-wrapper dialog {
     transform-origin: top center;
+    animation: modal var(--pf-ts-25);
+    animation-timing-function: cubic-bezier(0.42, 0, 0, 1);
   }
   @keyframes modal {
     0% {
       transform: scale(0.75);
-      filter: blur(8px);
-      opacity: 0;
+      filter: blur(8px) opacity(0);
     }
     100% {
       transform: scale(1);
-      filter: blur(0px);
-      opacity: 1;
+      filter: blur(0px) opacity(1);
     }
   }
   .topsite-form .form-input-container {
@@ -365,12 +369,13 @@
     text-decoration: none !important;
     color-scheme: light dark;
   }
-  .topsite-form .actions {
+  .topsite-form .actions > moz-button-group {
+    width: 100%;
     justify-content: space-between !important;
   }
-  .topsite-form .actions button {
-    font-size: 14px !important;
-    margin-inline-start: 0 !important;
+  .topsite-form .actions > moz-button-group > moz-button {
+    --button-border-radius: var(--border-radius-small);
+    --button-font-size: 14px;
   }
   /* weather */
   .weatherCard {

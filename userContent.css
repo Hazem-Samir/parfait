@@ -1,4 +1,4 @@
-/* 
+/*
   ⋅˚₊‧ ୨୧ ‧₊˚ ⋅
     Parfait
   ⋅˚₊‧ ୨୧ ‧₊˚ ⋅
@@ -6,4 +6,4 @@
   https://github.com/reizumii/parfait
 */
 
-@import url("parfait/pages.css");
+@import "parfait/pages.css";

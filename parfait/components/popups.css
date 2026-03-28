@@ -1,4 +1,4 @@
-/* 
+/*
   Parfait - popups.css
   https://github.com/reizumii/parfait
 */
@@ -12,7 +12,7 @@
 }
 #unified-extensions-view {
   --menu-panel-width-wide: var(--pf-extensions-width) !important;
-  
+
   toolbarseparator,
   .panel-header {
     display: none !important;
@@ -32,10 +32,10 @@
 .unified-extensions-list {
   margin-top: 8px;
   filter: grayscale(1);
-  
+
   .unified-extensions-item {
     background-color: color-mix(in srgb, var(--pf-toolbar-bgcolor), transparent 70%);
-    border-radius: var(--pf-border-radius) !important;
+    border-radius: var(--pf-border-radius-sm) !important;
   }
 }
 .unified-extensions-item {
@@ -47,9 +47,9 @@
 }
 .unified-extensions-item-action-button {
   justify-content: center !important;
-  --arrowpanel-menuitem-border-radius: var(--pf-border-radius);
+  --arrowpanel-menuitem-border-radius: var(--pf-border-radius-sm);
   --button-background-color-ghost: var(--pf-toolbar-bgcolor);
-  --uei-icon-size: 16px;
+  --uei-icon-size: var(--icon-size);
 }
 .unified-extensions-item-icon,
 .unified-extensions-item .webextension-browser-action.subviewbutton > .toolbarbutton-badge-stack {
@@ -57,7 +57,7 @@
 }
 #unified-extensions-manage-extensions {
   border: 1px solid var(--pf-border-color);
-  
+
   .toolbarbutton-text {
     text-align: center !important;
   }
@@ -69,8 +69,8 @@
   margin-bottom: 8px !important;
   padding: 4px 10px !important;
   border: 1px solid light-dark(rgba(0, 0, 0, 0.125), rgba(255, 255, 255, 0.125)) !important;
-  border-radius: var(--pf-border-radius) !important;
-  
+  border-radius: var(--pf-border-radius-md) !important;
+
   @media -moz-pref("parfait.bg.accent-color") {
     background-color: color-mix(in srgb, var(--pf-accent-color), var(--pf-panel-bgcolor) 80%) !important;
   }
@@ -91,8 +91,8 @@
   :root:not([lwtheme]) {
     menu, menuitem {
       &:where([_moz-menuactive]:not([disabled="true"])) {
-        background: color-mix(in srgb, var(--pf-accent-color), black 20%) !important;
-        color: var(--pf-menu-color) !important;
+        background: var(--pf-accent-primary-color) !important;
+        color: #fff !important;
       }
     }
   }
@@ -101,6 +101,7 @@
   }
   menupopup > menu::after {
     background-image: var(--pf-icon-chevron-right-small) !important;
+    --menu-arrow-opacity: 0.75;
     --menu-arrow-size: 12px;
   }
   menuitem[badge]::after {
@@ -113,7 +114,7 @@
   #context-navigation {
     flex-direction: column;
     align-items: start;
-    
+
     .menuitem-iconic {
       width: calc(100% - (var(--menuitem-margin-inline) * 2));
       justify-content: start !important;
@@ -151,10 +152,15 @@ panel toolbarseparator {
 }
 #appMenu-fullscreen-button2 {
   list-style-image: var(--pf-icon-fullscreen) !important;
-  
+
   &[checked] {
     list-style-image: var(--pf-icon-fullscreen-exit) !important;
   }
+}
+
+/* confirmation hint */
+#confirmation-hint {
+  --arrowpanel-color: var(--pf-text-color) !important;
 }
 
 /* manage tab group */
@@ -165,10 +171,10 @@ panel toolbarseparator {
     justify-content: unset !important;
     --heading-font-size-xlarge: var(--pf-font-size-1);
     --arrowpanel-menuitem-margin-inline: 4px 0;
-    
+
     &::before {
       content: var(--pf-icon-tabs);
-      fill: var(--color-accent-primary);
+      fill: var(--pf-accent-text-color);
       -moz-context-properties: fill;
     }
   }
@@ -188,7 +194,7 @@ panel toolbarseparator {
   .tab-group-editor-swatch {
     --border-radius-medium: 99px;
   }
-  @media not -moz-pref("parfait.tabs.groups.color") {
+  @media -moz-pref("sidebar.verticalTabs") and (not -moz-pref("parfait.tabs.groups.color")) {
     .panel-body.tab-group-editor-swatches {
       display: none !important;
     }
@@ -226,7 +232,7 @@ panel toolbarseparator {
   padding-block-start: 6px;
   background-color: var(--pf-input-bgcolor);
   border-top: 1px solid var(--pf-border-color-light);
-  
+
   & > p {
     color: var(--pf-text-color-inactive);
   }
@@ -240,10 +246,10 @@ panel toolbarseparator {
 }
 #tab-group-select-checkbox,
 .tab-group-suggestion-checkbox {
-  border-radius: var(--pf-border-radius);
+  border-radius: var(--pf-border-radius-md);
   padding: 6px 8px;
   --space-small: 8px;
-  
+
   &:hover {
     background-color: var(--pf-toolbar-bgcolor-hover);
   }
@@ -257,10 +263,10 @@ panel toolbarseparator {
   display: flex;
   gap: 8px;
   --heading-font-size-xlarge: var(--pf-font-size-1);
-  
+
   &::before {
     content: var(--pf-icon-translate);
-    fill: var(--color-accent-primary);
+    fill: var(--pf-accent-text-color);
     -moz-context-properties: fill;
   }
 }
@@ -342,7 +348,7 @@ panel toolbarseparator {
   top: 8px;
   right: 8px;
   border-radius: 999px;
-  
+
   .og-card-content:has(> .og-card-img) & {
     background-color: rgba(0, 0, 0, 0.2);
     backdrop-filter: var(--pf-background-filter);
@@ -351,25 +357,25 @@ panel toolbarseparator {
 }
 .ai-content {
   --og-padding: 8px 8px 0px;
-  
+
   .keypoints-header {
-    border-radius: var(--pf-border-radius-small);
+    border-radius: var(--pf-border-radius-sm);
     padding: 8px;
     align-items: center;
     transition: background-color var(--pf-ts-15);
     --og-main-font-size: var(--pf-font-size-1);
-    
+
     &:hover {
       background-color: var(--pf-toolbar-bgcolor-hover);
     }
-    .chevron-icon {
+    &::before {
       background-image: var(--pf-icon-chevron-down) !important;
       opacity: 0.6;
       margin-inline: auto 4px !important;
       order: 1;
     }
     img.icon {
-      fill: var(--color-accent-primary) !important;
+      fill: var(--pf-accent-text-color) !important;
       margin-right: 8px;
       order: -1;
       --space-xlarge: 0;
@@ -378,7 +384,7 @@ panel toolbarseparator {
   .keypoints-content {
     padding-block-end: 16px;
     padding-inline: 8px 12px !important;
-    
+
     &.hidden {
       padding-block-end: 8px;
     }
@@ -419,23 +425,101 @@ panel toolbarseparator {
 .all-tabs-mute-button[muted] {
   list-style-image: var(--pf-icon-audio-mute-12) !important;
 }
+@media -moz-pref("sidebar.verticalTabs") {
+  .tab-group-icon {
+    list-style-image: var(--pf-icon-folder) !important;
+    --menuitem-icon: var(--pf-icon-folder) !important;
+    --menuitem-icon-fill: light-dark(var(--tab-group-color), var(--tab-group-color-invert)) !important;
+
+    &:not([class~="all-tabs-group-action-button"], .tab-group-icon-collapsed) {
+      list-style-image: var(--pf-icon-folder-open) !important;
+    }
+    &.tab-group-icon-closed {
+      list-style-image: url("chrome://global/skin/icons/folder.svg") !important;
+      --menuitem-icon: url("chrome://global/skin/icons/folder.svg") !important;
+    }
+    @media not -moz-pref("parfait.tabs.groups.color") {
+      --menuitem-icon-fill: var(--toolbar-color) !important;
+    }
+  }
+}
 
 /* tab groups preview */
 #tabgroup-panel-content {
   --menuitem-max-width: var(--pf-tab-group-preview-width);
 }
 
+/* tab preview */
+.tab-preview-content-interactive { display: none !important; }
+
+/* tab note */
+.tab-note-preview-container {
+  --tab-note-text-background: transparent;
+}
+
+/* modal */
+#window-modal-dialog {
+  animation: dialog var(--pf-ts-25);
+  --chrome-offset: 24px !important;
+  --box-shadow-popup: var(--pf-shadow-md);
+}
+button[part="dialog-button"] {
+  border: 1px solid var(--pf-border-color) !important;
+  border-bottom-width: 2px !important;
+  --button-border-radius: var(--pf-border-radius-sm);
+
+  .button-text {
+    align-items: center;
+  }
+  &:is([dlgtype="cancel"], [default="true"]) {
+    padding-inline-end: 0.5em !important;
+
+    .button-text::after {
+      content: "";
+      display: flex;
+      background: color-mix(in srgb, currentColor, transparent 87%);
+      border-radius: var(--pf-border-radius-sm);
+      margin-left: 8px;
+      padding: 2px 6px;
+      fill: currentColor;
+      -moz-context-properties: fill;
+    }
+  }
+  &[dlgtype="cancel"] .button-text::after {
+    content: "Esc";
+    color: color-mix(in srgb, currentColor, transparent 40%);
+  }
+  &[default="true"] .button-text::after {
+    content: url("../assets/icons/enter-12.svg");
+    background: color-mix(in srgb, currentColor, transparent 85%);
+    border: 2px solid color-mix(in srgb, currentColor, transparent 75%);
+  }
+}
+#titleContainer[noicon="true"] #titleText {
+  font-size: var(--pf-font-size-1) !important;
+}
+@keyframes dialog {
+  0% {
+    transform: scale(0.95) translateY(-4px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
 /* fullscreen */
 .pointerlockfswarning {
   background-color: rgba(0, 0, 0, 0.75) !important;
   padding: 14px 20px !important;
-  box-shadow: var(--pf-shadow-medium) !important;
+  box-shadow: var(--pf-shadow-md) !important;
   border: none !important;
   --border-radius-medium: 12px;
-  
+
   &:is([data-identity="verifiedDomain"], [data-identity="unknownIdentity"])::before {
-    width: var(--pf-icon-size) !important;
-    height: var(--pf-icon-size) !important;
+    width: 16px !important;
+    height: 16px !important;
   }
   .pointerlockfswarning-domain-text,
   .pointerlockfswarning-generic-text {
@@ -456,8 +540,8 @@ panel toolbarseparator {
 }
 notification-message {
   margin: 0 !important;
-  border-radius: var(--pf-border-radius) !important;
-  
+  border-radius: var(--pf-border-radius-md) !important;
+
   &::before,
   &[style*="opacity: 0"] {
     display: none !important;
@@ -474,7 +558,7 @@ notification-message {
 #ctrlTab-panel {
   --panel-background: var(--arrowpanel-background) !important;
   --panel-color: var(--toolbox-color) !important;
-  --panel-border-radius: var(--pf-border-radius) !important;
+  --panel-border-radius: var(--pf-border-radius-md) !important;
 }
 .ctrlTab-preview,
 #ctrlTab-showAll {
@@ -482,16 +566,16 @@ notification-message {
 }
 .ctrlTab-preview-inner {
   border: 0 !important;
-  border-radius: var(--pf-border-radius) !important;
-  
+  border-radius: var(--pf-border-radius-md) !important;
+
   .ctrlTab-preview:focus & {
-    background-color: var(--toolbarbutton-hover-background) !important;
+    background-color: var(--pf-toolbar-bgcolor-active) !important;
   }
 }
 .ctrlTab-canvas {
   border: 1px solid var(--pf-border-color);
-  border-radius: var(--pf-border-radius-small);
-  box-shadow: var(--pf-shadow-medium) !important;
+  border-radius: var(--pf-border-radius-sm);
+  box-shadow: var(--pf-shadow-md) !important;
   overflow: hidden;
 }
 .ctrlTab-favicon-container {

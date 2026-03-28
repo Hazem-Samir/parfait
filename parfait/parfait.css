@@ -1,4 +1,4 @@
-/* 
+/*
   ⋅˚₊‧ ୨୧ ‧₊˚ ⋅
     Parfait
   ⋅˚₊‧ ୨୧ ‧₊˚ ⋅
@@ -20,7 +20,7 @@
 @import "components/icons.css";
 
 /*
-  for custom configuration, add your changes to the custom.css,
+  for custom configuration, add your changes to custom.css,
   this file doesn't exist by default, so create it first.
 */
 @import "custom.css";

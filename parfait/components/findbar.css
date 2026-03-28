@@ -1,4 +1,4 @@
-/* 
+/*
   Parfait - findbar.css
   https://github.com/reizumii/parfait
 */
@@ -10,13 +10,14 @@
   right: 16px;
   width: var(--pf-findbar-width);
   padding-block: 0 !important;
-  background-color: var(--pf-panel-bgcolor) !important;
+  background: var(--pf-panel-bgcolor) !important;
   border: 1px solid var(--pf-border-color) !important;
-  border-radius: var(--pf-border-radius);
-  box-shadow: var(--pf-shadow-medium) !important;
+  border-radius: var(--pf-border-radius-md);
+  box-shadow: var(--pf-shadow-md) !important;
   transition: top var(--pf-ts-25) !important;
+  animation: findbar-show var(--pf-ts-25);
   visibility: visible !important;
-  
+
   &[hidden] {
     display: flex !important;
     top: -100px;
@@ -36,55 +37,51 @@
     top: 8px;
     right: 8px;
     margin: 0 !important;
-    min-width: 24px;
-    min-height: 24px;
+    padding: 4px !important;
   }
   hbox[anonid="findbar-textbox-wrapper"] {
     width: var(--pf-findbar-width) !important;
     min-height: 40px;
-    padding: 8px;
-    border-bottom: 1px solid var(--pf-border-color);
+    padding: 8px 36px 8px 8px;
+    border-bottom: 1px solid var(--pf-border-color-light);
     gap: 4px;
-    
+
     .findbar-textbox {
-      width: calc((var(--pf-findbar-width) - (16px * 2)) - (24px * 3)) !important;
+      width: 100% !important;
       background: none !important;
-      border: 0 !important;
+      border: none !important;
       box-shadow: none !important;
       outline: none !important;
     }
-    .findbar-find-previous,
-    .findbar-find-next {
-      width: 24px;
-      height: 24px;
+    toolbarbutton {
       margin: 0 !important;
+      padding: 4px !important;
     }
   }
   checkbox {
-    margin: 8px 3px !important;
-    
+    margin: 8px 2px !important;
+
     &:hover .checkbox-label-box {
       background-color: var(--pf-toolbar-bgcolor-hover);
     }
     &[checked] .checkbox-label-box {
-      background-color: var(--pf-toolbar-bgcolor-active);
+      background-color: color-mix(in srgb, var(--pf-accent-color), transparent 80%);
+      --pf-icon-color: var(--pf-accent-text-color);
     }
     .checkbox-label-box {
-      border-radius: var(--pf-border-radius-xsmall);
+      border-radius: var(--pf-border-radius-sm);
     }
     .checkbox-icon {
-      width: 24px;
-      height: 24px;
       margin: 0 !important;
       padding: 4px;
       display: block !important;
-      fill: var(--pf-text-color);
+      fill: var(--pf-icon-color);
       -moz-context-properties: fill;
-      
+
       .findbar-highlight & {
         content: var(--pf-icon-search-highlight);
       }
-      .findbar-case-sensitive  & {
+      .findbar-case-sensitive & {
         content: var(--pf-icon-search-matchcase);
       }
       .findbar-match-diacritics & {
@@ -97,10 +94,17 @@
     &.findbar-highlight {
       margin-left: 8px !important;
     }
+    .split-view-panel .findbar-container > &:not([hidden]) {
+      display: flex !important;
+    }
   }
   .checkbox-check,
   .checkbox-label,
   .findbar-find-status[data-l10n-id="findbar-wrapped-to-top"] {
     display: none;
   }
+}
+@keyframes findbar-show {
+  0% { top: -100px; }
+  100% { top: 16px; }
 }
