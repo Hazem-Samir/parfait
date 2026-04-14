@@ -17,9 +17,9 @@
 
 ## Getting started
 
-### [Parfait Wiki](https://github.com/reizumii/parfait/wiki)
+### [📕 Parfait Wiki](https://github.com/reizumii/parfait/wiki)
 
-### [Installing Parfait](https://github.com/reizumii/parfait/wiki/Installing-Parfait)
+### [🔽 Installing Parfait](https://github.com/reizumii/parfait/wiki/Installing-Parfait)
 
 ## Acknowledgements
 
