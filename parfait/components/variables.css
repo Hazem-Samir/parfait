@@ -213,12 +213,16 @@
   --pf-ts-25: 0.25s;
   --pf-ts-50: 0.50s;
   --pf-ts-75: 0.75s;
+  --pf-ts-fs: 0.25s;
 
   @media -moz-pref("parfait.animations.enabled", false) or (prefers-reduced-motion: reduce) {
     --pf-ts-15: 0s;
     --pf-ts-25: 0s;
     --pf-ts-50: 0s;
     --pf-ts-75: 0s;
+    --pf-ts-fs: 0s;
+
+    @media (-moz-platform: windows) and -moz-pref("parfait.traffic-lights.enabled") { --pf-ts-fs: 1ms; }
   }
 
   /* effects */

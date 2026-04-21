@@ -246,7 +246,7 @@ moz-button[view="viewCustomizeSidebar"] { order: 99; }
       border-radius: var(--pf-browser-radius);
       box-shadow: var(--pf-fl-sidebar-shadow);
       transition-property: left, box-shadow;
-      transition-duration: var(--pf-ts-25);
+      transition-duration: var(--pf-ts-fs);
       transition-timing-function: var(--pf-fx-sidebar);
 
       /* fs: options */
@@ -430,7 +430,7 @@ moz-button[view="viewCustomizeSidebar"] { order: 99; }
     #vertical-spacer::before,
     #vertical-spacer::after,
     #urlbar:not([open], [focused]) {
-      transition: all var(--pf-ts-25) var(--pf-fx-sidebar) !important;
+      transition: all var(--pf-ts-fs) var(--pf-fx-sidebar) !important;
     }
     #sidebar-button,
     #back-button,
