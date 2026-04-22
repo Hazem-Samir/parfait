@@ -136,9 +136,15 @@
   .text-link, a, ::part(support-link) {
     text-decoration: none !important;
   }
-  /* remove right sidebar option */
   [data-l10n-id="sidebar-show-on-the-right"] {
     display: none !important;
+    --pf-sidebar-icon: var(--pf-icon-experiment);
+  }
+  .text-container::after {
+    content: var(--pf-sidebar-icon, none);
+    fill: var(--pf-accent-text-color);
+    order: -1;
+    -moz-context-properties: fill;
   }
 }
 

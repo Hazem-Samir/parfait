@@ -7,9 +7,6 @@
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 user_pref("svg.context-properties.content.enabled", true);
 
-/* --- revert sidebar position to left --- */
-user_pref("sidebar.position_start", true);
-
 /* --- set default parfait preferences --- */
 
 /* general */
