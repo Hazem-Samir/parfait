@@ -101,7 +101,7 @@ spacer:is([part="overflow-start-indicator"], [part="overflow-end-indicator"]) {
     background-image: none !important;
   }
   .tab-icon-image {
-    animation: tab-icon-bounce var(--pf-ts-50) var(--pf-fx-bounce);
+    animation: pf-tab-icon-bounce var(--pf-ts-50) var(--pf-fx-bounce);
   }
 }
 .tab-background {
@@ -174,7 +174,7 @@ spacer:is([part="overflow-start-indicator"], [part="overflow-end-indicator"]) {
     opacity: 0.5;
   }
   #tabbrowser-tabs[orient="vertical"] & .tab-background[selected] {
-    animation: tab-select var(--pf-ts-25) var(--pf-fx-bounce);
+    animation: pf-tab-select var(--pf-ts-25) var(--pf-fx-bounce);
   }
   #tabbrowser-tabs[orient="vertical"] & .tab-stack {
     transition: scale var(--pf-ts-15);
@@ -195,11 +195,11 @@ spacer:is([part="overflow-start-indicator"], [part="overflow-end-indicator"]) {
     display: none !important;
   }
 }
-@keyframes tab-icon-bounce {
+@keyframes pf-tab-icon-bounce {
   0%, 100% { transform: translateY(0px) scale(1); }
   50% { transform: translateY(-4px) scale(1.125); }
 }
-@keyframes tab-select {
+@keyframes pf-tab-select {
   0%   { scale: 1.025 1.125; }
   100% { scale: 1; }
 }

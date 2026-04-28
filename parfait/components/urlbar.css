@@ -150,7 +150,7 @@
     /* fu: search mode glow */
     @media -moz-pref("parfait.urlbar.search-mode.glow") {
       &[searchmode] {
-        animation: searchbar var(--pf-ts-15);
+        animation: pf-searchbar var(--pf-ts-15);
         transform-origin: center;
 
         &::before {
@@ -158,7 +158,7 @@
           width: 100%;
           height: 100%;
           position: absolute;
-          animation: searchbar-expand var(--pf-ts-75);
+          animation: pf-searchbar-expand var(--pf-ts-75);
           border-radius: var(--pf-urlbar-fl-radius);
         }
       }
@@ -466,11 +466,11 @@
   }
 }
 /* fu: search mode glow */
-@keyframes searchbar {
+@keyframes pf-searchbar {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(0.9875); }
 }
-@keyframes searchbar-expand {
+@keyframes pf-searchbar-expand {
   0% { box-shadow: 0 0 0 color-mix(in srgb, var(--pf-accent-color), var(--pf-text-color) 30%); }
   100% { box-shadow: 0 0 300px color-mix(in srgb, var(--pf-accent-color), transparent 100%); }
 }

@@ -330,10 +330,10 @@
   }
   .edit-topsites-wrapper dialog {
     transform-origin: top center;
-    animation: modal var(--pf-ts-25);
+    animation: pf-modal var(--pf-ts-25);
     animation-timing-function: cubic-bezier(0.42, 0, 0, 1);
   }
-  @keyframes modal {
+  @keyframes pf-modal {
     0% {
       transform: scale(0.75);
       filter: blur(8px) opacity(0);
