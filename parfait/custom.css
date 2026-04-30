@@ -9,6 +9,16 @@
     .titlebar-buttonbox-container {display: none !important;}      /* <                             */
   }
 
+
+@media -moz-pref("parfait.toolbar.unified-sidebar") and -moz-pref("sidebar.verticalTabs") and -moz-pref("sidebar.visibility", "hide-sidebar") {
+  :root:not([customizing], [chromehidden~="toolbar"], [taskbartab]):has(#tabbrowser-tabs:not([expanded])) {
+    & #sidebar-main {
+      background-color: rgba(0,0,0,0.8);
+
+    }
+  }
+}
+
 :root[lwtheme]:not([lwtheme-image-y-align]) body, :root[lwtheme][lwtheme-image-y-align] #navigator-toolbox {
   background-image: var(--lwt-additional-images);
   background-repeat: var(--lwt-background-tiling);
