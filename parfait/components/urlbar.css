@@ -150,7 +150,9 @@
     }
     /* fu: search mode glow */
     @media -moz-pref("parfait.urlbar.search-mode.glow") {
-      &[searchmode] {
+      &[searchmode] 
+          &[focused],
+    &[open] {
         animation: pf-searchbar var(--pf-ts-15);
         transform-origin: center;
 
