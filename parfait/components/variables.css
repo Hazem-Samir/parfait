@@ -167,7 +167,7 @@
   @media (-moz-platform: windows) and (not -moz-pref("parfait.traffic-lights.enabled")) {
     --pf-wc-width: 138px;
   }
-  @media -moz-pref("parfait.traffic-lights.enabled") {
+  @media -moz-pref("parfait.traffic-lights.enabled") and (not (-moz-platform: macos)) {
     --pf-tl-margin: 0px;
   }
   @media (-moz-platform: macos) {
@@ -175,7 +175,6 @@
   }
   @media (-moz-mac-tahoe-theme) {
     --pf-tl-size: 14px;
-    --pf-tl-margin: -8px;
   }
   /* csd: linux */
   @media (-moz-platform: linux) and (-moz-gtk-csd-close-button) and (not -moz-pref("parfait.traffic-lights.enabled")) {

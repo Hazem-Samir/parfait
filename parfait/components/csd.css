@@ -56,10 +56,10 @@
     }
     &::before {
       content: "" !important;
-      min-width: 12px;
-      height: 12px;
+      min-width: var(--pf-tl-size);
+      height: var(--pf-tl-size);
       display: block;
-      background: var(--pf-tl-button-icon) center / 12px;
+      background: var(--pf-tl-button-icon) center / var(--pf-tl-size);
       opacity: 0;
     }
     &:-moz-window-inactive {
