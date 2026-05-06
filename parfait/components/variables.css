@@ -175,6 +175,8 @@
   }
   @media (-moz-mac-tahoe-theme) {
     --pf-tl-size: 14px;
+    --pf-tl-gap: 9px;
+    --pf-tl-margin: 0px;
   }
   /* csd: linux */
   @media (-moz-platform: linux) and (-moz-gtk-csd-close-button) and (not -moz-pref("parfait.traffic-lights.enabled")) {
@@ -198,8 +200,11 @@
     }
   }
   /* system titlebar */
+  &[macOSNativeFullscreen],
   &:not([customtitlebar]) {
     --pf-wc-width: 0px;
+    --pf-tl-margin: 0px;
+    --pf-tl-width: var(--pf-separation);
   }
 
   /* borderless */

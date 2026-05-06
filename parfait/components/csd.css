@@ -94,7 +94,7 @@
   }
   /* tl: macos fixes */
   @media (-moz-platform: macos) {
-    @media -moz-pref("parfait.toolbar.unified-sidebar") and -moz-pref("sidebar.visibility", "hide-sidebar") {
+    @media -moz-pref("parfait.toolbar.unified-sidebar") and -moz-pref("sidebar.verticalTabs") and -moz-pref("sidebar.visibility", "hide-sidebar") {
       :root:has(#tabbrowser-tabs:not([expanded])) {
         .titlebar-button {
           display: flex !important;

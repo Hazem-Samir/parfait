@@ -66,7 +66,7 @@ toolbar .toolbarbutton-1:not(#PlacesChevron, .toolbarbutton-combined-buttons-dro
   will-change: unset !important;
 
   @media -moz-pref("parfait.traffic-lights.enabled") or (-moz-platform: macos) {
-    :root:not([macOSNativeFullscreen]) & { padding-inline-start: 0 !important; }
+    :root[customtitlebar]:not([macOSNativeFullscreen]) & { padding-inline-start: 0 !important; }
   }
 }
 #nav-bar-customization-target {
@@ -255,7 +255,7 @@ toolbarbutton.bookmark-item:not(.subviewbutton) {
     }
     /* hl: toolbar item positioning */
     @media -moz-pref("parfait.traffic-lights.enabled") or (-moz-platform: macos) or ((-moz-platform: linux) and (-moz-gtk-csd-reversed-placement)) {
-      #nav-bar > .titlebar-buttonbox-container {
+      &[customtitlebar]:not([macOSNativeFullscreen]) #nav-bar > .titlebar-buttonbox-container {
         display: flex !important;
       }
       #TabsToolbar > .titlebar-buttonbox-container {
