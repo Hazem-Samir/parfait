@@ -12,6 +12,7 @@
   --pf-pinned-height: 48px;
   --pf-sidebar-width: 240px;
   --pf-navbar-padding-block: 7px;
+  --pf-navbar-padding-xs: 0px;
   --pf-toolbaritem-size: 32px;
   --pf-toolbaritem-gap: 2px;
   --pf-urlbar-height: 36px;
@@ -76,7 +77,6 @@
 
   /* traffic lights */
   --pf-tl-size: 12px;
-  --pf-tl-margin: var(--pf-tl-width);
   --pf-tl-padding-left: 14px;
   --pf-tl-padding-right: 4px;
   --pf-tl-gap: 8px;
@@ -89,7 +89,7 @@
   /* calc */
   --pf-tl-width: calc((var(--pf-tl-size) * 3) + (var(--pf-tl-gap) * 2) + (var(--pf-tl-padding-left) + var(--pf-tl-padding-right)));
   --pf-sidebar-min: calc((var(--pf-toolbaritem-size) * 4) + (var(--pf-toolbaritem-gap) * 3) + var(--pf-tl-width) + var(--pf-separation));
-  --pf-sidebar-gutter: calc((var(--pf-sidebar-width) - var(--pf-sidebar-min)) + var(--pf-tl-margin));
+  --pf-sidebar-gutter: calc(var(--pf-sidebar-width) - var(--pf-sidebar-min) - var(--pf-navbar-padding-xs));
   --pf-sidebar-margin: calc(var(--pf-urlbar-height) + var(--pf-separation) - var(--tab-block-margin));
   --pf-navbar-height: calc(var(--pf-toolbaritem-size) + (var(--pf-navbar-padding-block) * 2));
   --pf-navbar-margin: calc(var(--pf-browser-separation) - var(--pf-navbar-height));
@@ -167,16 +167,13 @@
   @media (-moz-platform: windows) and (not -moz-pref("parfait.traffic-lights.enabled")) {
     --pf-wc-width: 138px;
   }
-  @media -moz-pref("parfait.traffic-lights.enabled") and (not (-moz-platform: macos)) {
-    --pf-tl-margin: 0px;
-  }
-  @media (-moz-platform: macos) {
-    --pf-tl-margin: -2px;
+  @media (not -moz-pref("parfait.traffic-lights.enabled")) and (not (-moz-platform: macos)) {
+    --pf-tl-width: 0px;
+    --pf-navbar-padding-xs: var(--pf-separation);
   }
   @media (-moz-mac-tahoe-theme) {
     --pf-tl-size: 14px;
     --pf-tl-gap: 9px;
-    --pf-tl-margin: 0px;
   }
   /* csd: linux */
   @media (-moz-platform: linux) and (-moz-gtk-csd-close-button) and (not -moz-pref("parfait.traffic-lights.enabled")) {
@@ -203,8 +200,8 @@
   &[macOSNativeFullscreen],
   &:not([customtitlebar]) {
     --pf-wc-width: 0px;
-    --pf-tl-margin: 0px;
-    --pf-tl-width: var(--pf-separation);
+    --pf-tl-width: 0px;
+    --pf-navbar-padding-xs: var(--pf-separation);
   }
 
   /* borderless */

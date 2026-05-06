@@ -60,14 +60,10 @@ toolbar .toolbarbutton-1:not(#PlacesChevron, .toolbarbutton-combined-buttons-dro
 }
 #nav-bar {
   min-height: var(--pf-navbar-height) !important;
-  padding-inline-start: var(--pf-separation) !important;
+  padding-inline-start: var(--pf-navbar-padding-xs) !important;
   border-top: 0 !important;
   align-items: center;
   will-change: unset !important;
-
-  @media -moz-pref("parfait.traffic-lights.enabled") or (-moz-platform: macos) {
-    :root[customtitlebar]:not([macOSNativeFullscreen]) & { padding-inline-start: 0 !important; }
-  }
 }
 #nav-bar-customization-target {
   align-items: center;
