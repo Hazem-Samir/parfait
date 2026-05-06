@@ -60,7 +60,7 @@ toolbar .toolbarbutton-1:not(#PlacesChevron, .toolbarbutton-combined-buttons-dro
 }
 #nav-bar {
   min-height: var(--pf-navbar-height) !important;
-  padding-inline-start: var(--pf-navbar-padding-xs) !important;
+  padding-inline-start: var(--pf-navbar-padding-left) !important;
   border-top: 0 !important;
   align-items: center;
   will-change: unset !important;
