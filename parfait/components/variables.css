@@ -46,12 +46,12 @@
   --pf-accent-primary-color: color-mix(in srgb, var(--pf-accent-color), light-dark(rgb(96, 96, 96), rgb(34, 34, 34)) 50%);
   --pf-browser-bgcolor-mix: light-dark(#fff, #000);
   --pf-browser-bgcolor: color-mix(in oklab, var(--pf-accent-color), var(--pf-browser-bgcolor-mix) var(--pf-browser-contrast));
-  --pf-browser-bgcolor-transparent: light-dark(var(--color-white-alpha-60), var(--color-black-alpha-60));
+  --pf-browser-bgcolor-transparent: light-dark(var(--color-white-alpha-30), var(--color-black-alpha-30));
   --pf-browser-opacity: 50%;
   --pf-browser-contrast: 25%;
   --pf-sidebar-bgcolor: light-dark(rgb(248, 248, 248), rgb(21, 21, 21));
   --pf-panel-bgcolor: light-dark(rgb(255, 255, 255), rgb(21, 21, 21));
-  --pf-panel-bgcolor-transparent: light-dark(rgba(255, 255, 255, 0.875), rgba(25, 26, 26, 0.925));
+  --pf-panel-bgcolor-transparent: light-dark(var(--color-white-alpha-60), var(--color-black-alpha-60));
   --pf-text-color: color-mix(in srgb, var(--toolbar-color), transparent 10%);
   --pf-text-color-inactive: color-mix(in srgb, var(--pf-text-color), transparent 30%);
   --pf-icon-color: light-dark(rgba(91, 91, 102, 0.9), rgba(251, 251, 254, 0.8));
@@ -131,6 +131,9 @@
     --pf-navbar-padding-block: 6px;
     --pf-urlbar-height: var(--pf-toolbaritem-size);
   }
+
+  /* bg: transparency */
+  @media (-moz-platform: linux) { --pf-browser-bgcolor-transparent: light-dark(var(--color-white-alpha-60), var(--color-black-alpha-60)); }
 
   /* bg: opacity */
   @media -moz-pref("parfait.bg.opacity", 1) { --pf-browser-opacity: 25%; }
