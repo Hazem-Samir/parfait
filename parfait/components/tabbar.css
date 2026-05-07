@@ -299,6 +299,9 @@ tab-split-view-wrapper {
     --tab-hover-background-color: transparent;
     --tab-selected-shadow: none;
   }
+  .tab-content {
+    --space-medium: var(--tab-icon-end-margin);
+  }
   .tabbrowser-tab {
     border: 0 !important;
   }

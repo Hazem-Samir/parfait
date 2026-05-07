@@ -24,7 +24,7 @@
   }
   @media -moz-pref("parfait.blur.enabled") {
     backdrop-filter: var(--pf-acrylic-filter);
-    --pf-panel-bgcolor: var(--pf-panel-bgcolor-transparent);
+    background: color-mix(in srgb, var(--pf-panel-bgcolor), transparent 12%) !important;
   }
   .findbar-container {
     flex-wrap: wrap;

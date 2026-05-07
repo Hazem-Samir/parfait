@@ -6,13 +6,13 @@
 /* window: background */
 :root:not([lwtheme]) {
   #browser:not(.browser-toolbox-background) {
-    --toolbar-bgcolor: var(--toolbox-bgcolor);
+    --toolbar-bgcolor: transparent;
 
     &:-moz-window-inactive {
       --toolbar-bgcolor: var(--toolbox-bgcolor-inactive);
     }
   }
-  @media -moz-pref("parfait.bg.transparent") {
+  @media -moz-pref("parfait.bg.transparent") and (not (-moz-platform: windows)) {
     --toolbox-bgcolor: var(--pf-browser-bgcolor-transparent) !important;
   }
   @media -moz-pref("parfait.bg.accent-color") {

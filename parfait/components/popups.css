@@ -139,6 +139,9 @@ panel toolbarseparator {
     --panel-border-color: transparent !important;
     --panel-shadow-margin: 0 !important;
     --panel-border-radius: 0 !important;
+    --background-color-canvas: var(--color-white) !important;
+
+    @media (-moz-platform: macos) { --panel-background: transparent !important; }
   }
 }
 /* context menu: icons */

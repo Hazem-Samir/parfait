@@ -158,9 +158,11 @@
     display: none;
   }
   /* customize menu */
+  .customize-menu,
   .customize-menu-animate-wrapper {
     width: 450px !important;
     height: fit-content !important;
+    min-height: unset !important;
     top: unset !important;
     right: 20px !important;
     bottom: 20px !important;
@@ -176,6 +178,7 @@
     transition-timing-function: cubic-bezier(0.125, 1.125, 0.25, 1.0125) !important;
     overflow: hidden !important;
   }
+  .customize-menu:is(.customize-animate-enter-active, .customize-animate-enter-done),
   .customize-menu-animate-wrapper:is(.customize-animate-enter-active, .customize-animate-enter-done) {
     transform: scale(1) !important;
   }
