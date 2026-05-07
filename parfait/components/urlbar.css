@@ -4,6 +4,13 @@
 */
 
 /* urlbar */
+:root {
+  --pf-urlbar-radius: var(--pf-border-radius-md);
+
+  @media not -moz-pref("sidebar.verticalTabs") {
+    --pf-urlbar-radius: var(--pf-border-radius-hl);
+  }
+}
 #urlbar:not([open]) {
   height: var(--urlbar-height) !important;
   min-height: unset !important;
@@ -13,7 +20,7 @@
     border: none !important;
     outline: none !important;
     --toolbar-field-background-color: var(--pf-toolbar-bgcolor);
-    --toolbarbutton-border-radius: var(--pf-border-radius-md);
+    --toolbarbutton-border-radius: var(--pf-urlbar-radius);
 
     #urlbar:not([focused]) & {
       transition: background-color var(--pf-ts-25);
@@ -52,7 +59,7 @@
     #urlbar { will-change: unset !important; }
   }
   #urlbar:not([open]) {
-    --urlbar-inner-border-radius: max(var(--pf-border-radius-sm), calc(var(--pf-border-radius-md) - 3px));
+    --urlbar-inner-border-radius: max(var(--pf-border-radius-sm), calc(var(--pf-urlbar-radius) - 3px));
 
     /* urlbar items */
     #userContext-label,
@@ -158,9 +165,8 @@
 
         &::before {
           content: "";
-          width: 100%;
-          height: 100%;
           position: absolute;
+          inset: 0;
           animation: pf-searchbar-expand var(--pf-ts-75);
           border-radius: var(--pf-urlbar-fl-radius);
         }
@@ -197,29 +203,21 @@
       height: var(--pf-urlbar-height);
       background-color: var(--pf-toolbar-bgcolor-inactive);
       border: 1px dashed var(--pf-toolbar-bgcolor-active);
-      border-radius: var(--pf-border-radius-md);
+      border-radius: var(--pf-urlbar-radius);
       box-sizing: border-box;
       z-index: 1;
     }
   }
-  @media -moz-pref("sidebar.verticalTabs", false) or (not -moz-pref("sidebar.visibility", "hide-sidebar")) {
+  @media (not -moz-pref("sidebar.verticalTabs")) or (not -moz-pref("sidebar.visibility", "hide-sidebar")) {
     &:has(#tabbrowser-tabs:not([expanded]), #navigator-toolbox:not([tabs-hidden])) {
       &:has(#urlbar[open]) #urlbar-container {
         min-height: var(--pf-urlbar-height) !important;
         background: var(--pf-toolbar-bgcolor-inactive);
         border: 1px dashed var(--pf-toolbar-bgcolor-active);
-        border-radius: var(--pf-border-radius-md);
+        border-radius: var(--pf-urlbar-radius);
       }
-      #vertical-spacer::after { display: none; }
+      #vertical-spacer::after { content: none; }
     }
-  }
-}
-/* urlbar: horizontal layout */
-#navigator-toolbox:not([tabs-hidden]) #urlbar:not([open]) {
-  --urlbar-inner-border-radius: max(var(--pf-border-radius-sm), calc(var(--pf-border-radius-hl) - 3px));
-
-  .urlbar-background {
-    --toolbarbutton-border-radius: var(--pf-border-radius-hl);
   }
 }
 /* center url */

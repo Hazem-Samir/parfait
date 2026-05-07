@@ -56,10 +56,10 @@
     }
     &::before {
       content: "" !important;
-      min-width: 12px;
-      height: 12px;
+      min-width: var(--pf-tl-size);
+      height: var(--pf-tl-size);
       display: block;
-      background: var(--pf-tl-button-icon) center / 12px;
+      background: var(--pf-tl-button-icon) center / var(--pf-tl-size);
       opacity: 0;
     }
     &:-moz-window-inactive {
@@ -94,24 +94,6 @@
   }
   /* tl: macos fixes */
   @media (-moz-platform: macos) {
-    @media -moz-pref("parfait.toolbar.unified-sidebar") and -moz-pref("sidebar.visibility", "hide-sidebar") {
-      :root:has(#tabbrowser-tabs:not([expanded])) {
-        .titlebar-button {
-          display: flex !important;
-          appearance: none !important;
-        }
-        &[sizemode="normal"] .titlebar-restore,
-        &[sizemode="maximized"] .titlebar-max {
-          display: none !important;
-        }
-        /* hide native csd */
-        .titlebar-buttonbox {
-          appearance: none !important;
-        }
-      }
-    }
-    .titlebar-buttonbox {
-      margin-inline: 0 !important;
-    }
+    .titlebar-buttonbox { margin-inline: 0 !important; }
   }
 }

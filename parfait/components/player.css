@@ -4,11 +4,6 @@
 */
 
 @-moz-document url("chrome://global/content/pictureinpicture/player.xhtml") {
-  @media (-moz-platform: windows) {
-    :root {
-      --player-bg-color: transparent !important;
-    }
-  }
   #controls {
     width: 100% !important;
     height: 100% !important;
