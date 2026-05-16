@@ -1,0 +1,75 @@
+/*
+  urlbar-merged.css
+  Parfait position/layout + Natsumi haze blur material on open state.
+
+  Requires Firefox prefs:
+    layout.css.backdrop-filter.enabled = true
+    layout.css.backdrop-filter.force-enabled = true
+*/
+
+/* ── Natsumi blur animation for the open/floating urlbar ─────────────── */
+@keyframes natsumi-urlbar-appear {
+  0% {
+    scale: 0.97;
+    opacity: 0;
+  }
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+/* ── Apply Natsumi's haze material to the urlbar ───────────────────────── */
+#urlbar[open] {
+  --pf-urlbar-fl-blur: var(--natsumi-mat-hz-backdrop) !important;
+  --pf-urlbar-bgcolor: var(--natsumi-mat-hz-background) !important;
+
+  .urlbar-background {
+    background-color: var(--natsumi-mat-hz-background) !important;
+    --toolbar-field-focus-background-color: var(--natsumi-mat-hz-background) !important;
+    backdrop-filter: var(--natsumi-mat-hz-backdrop) !important;
+    box-shadow: var(--natsumi-mat-hz-shadow) !important;
+    border: var(--natsumi-mat-hz-border) !important;
+    transition: backdrop-filter 0.2s ease !important;
+    will-change: backdrop-filter;
+  }
+
+  /* Animate the whole urlbar in */
+  animation: natsumi-urlbar-appear 0.2s ease forwards !important;
+
+  /* Fade in input and results separately */
+  & > .urlbar-input-container,
+  .urlbarView {
+    animation: natsumi-urlbar-appear 0.15s ease 0.05s forwards !important;
+  }
+}
+
+/* ── Search result rows ───────────────────────────────────────────────── */
+#urlbar[open] .urlbarView-row {
+  .urlbarView-row-inner {
+    border-radius: 6px !important;
+    transition: background 0.15s ease;
+  }
+  &:hover .urlbarView-row-inner,
+  &[selected] .urlbarView-row-inner {
+    background-color: var(--natsumi-button-hover-color, var(--pf-toolbar-bgcolor-hover)) !important;
+  }
+  &:active:not(:has(.urlbarView-button-menu:hover)) .urlbarView-row-inner {
+    background-color: var(--natsumi-button-active-color, var(--pf-toolbar-bgcolor-active)) !important;
+  }
+}
+
+/* ── Search result rows ───────────────────────────────────────────────── */
+#urlbar[open] .urlbarView-row {
+  .urlbarView-row-inner {
+    border-radius: 6px !important;
+    transition: background 0.15s ease;
+  }
+  &:hover .urlbarView-row-inner,
+  &[selected] .urlbarView-row-inner {
+    background-color: var(--natsumi-button-hover-color, var(--pf-toolbar-bgcolor-hover)) !important;
+  }
+  &:active:not(:has(.urlbarView-button-menu:hover)) .urlbarView-row-inner {
+    background-color: var(--natsumi-button-active-color, var(--pf-toolbar-bgcolor-active)) !important;
+  }
+}

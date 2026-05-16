@@ -1,0 +1,26 @@
+/*
+  Natsumi merged entry point
+  Loads all of Natsumi's modules. Urlbar is handled separately
+  by urlbar-merged.css so natsumi.urlbar.disabled is NOT needed.
+*/
+
+/* Config and global variables + material system */
+@import "../natsumi-config.css";
+@import "modules/preload.css";
+@import "global/starlight.css";
+
+
+/* Feature modules */
+@import "modules/backdrop-blur.css";
+@import "modules/findbar.css";
+@import "modules/glimpse.css";
+@import "modules/customize.css";
+@import "modules/experiments.css";
+@import "modules/icons.css";
+
+/* Urlbar: Natsumi's version is NOT loaded here.
+   Instead, urlbar-merged.css (loaded in userChrome.css) handles
+   the urlbar — using Parfait's layout + Natsumi's blur material. */
+
+/* REQUIRED: signals JS scripts that CSS loaded successfully */
+@import "modules/postload.css";

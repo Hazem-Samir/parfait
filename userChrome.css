@@ -1,9 +1,16 @@
 /*
-  ⋅˚₊‧ ୨୧ ‧₊˚ ⋅
-    Parfait
-  ⋅˚₊‧ ୨୧ ‧₊˚ ⋅
+  ╔═══════════════════════════════════════╗
+  ║   Parfait × Natsumi — Merged Theme    ║
+  ╚═══════════════════════════════════════╝
 
-  https://github.com/reizumii/parfait
+  Load order (matters — later wins on !important ties):
+    1. Parfait          — layout, tabs, toolbar, urlbar, sidebar, popups
+    2. Natsumi          — color system, blur materials, glimpse, icons, scripts
+    3. conflicts-resolved.css — re-asserts Parfait's layout where Natsumi overrides it
+    4. urlbar-merged.css      — Parfait position + Natsumi haze blur on open state
 */
 
 @import "parfait/parfait.css";
+@import "natsumi/natsumi-merged.css";
+@import "conflicts-resolved.css";
+@import "urlbar-merged.css";

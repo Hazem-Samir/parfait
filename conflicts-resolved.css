@@ -1,0 +1,312 @@
+/*
+  conflicts-resolved.css
+  ══════════════════════
+  Loaded last, after both Parfait and Natsumi.
+  Resolves every property conflict between the two themes.
+
+  Strategy per conflict:
+    • Layout/position/size → Parfait wins (use Parfait's variables)
+    • Visual effects (blur, shadows, borders on content) → Natsumi wins
+    • Unique to one theme → keep as-is, no action needed
+
+  ┌─────────────────────────────────────────────────────────────────┐
+  │ CONFLICT MAP                                                    │
+  │                                                                 │
+  │ #tabbrowser-tabbox margins   → Parfait wins                    │
+  │ #nav-bar border              → Parfait wins (it sets border-top)│
+  │ #sidebar-box margin/border   → split: margin→Parfait,          │
+  │                                       border/radius→Natsumi    │
+  │ #sidebar-splitter width      → Parfait wins                    │
+  │ #vertical-spacer display     → Parfait wins (it needs it)      │
+  │ #TabsToolbar margin-inline   → Parfait wins                    │
+  │ toolbarbutton icon size      → Parfait wins                    │
+  │ .tools-and-extensions        → Parfait wins for padding/height  │
+  │ urlbar (open state)          → Natsumi blur + Parfait position  │
+  └─────────────────────────────────────────────────────────────────┘
+*/
+
+/* ═══════════════════════════════════════════════════════════════════
+   1. BROWSER PANE (#tabbrowser-tabbox) MARGINS
+   Natsumi uses margin-right/margin-left with --natsumi-browser-separation.
+   Parfait uses margin-inline-end with --pf-browser-separation.
+   Since Natsumi loads after Parfait and uses !important, it wins.
+   We restore Parfait's values.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root:not([inDOMFullscreen="true"]):not([drawtitle]) {
+  #browser:not([data-is-child="true"]) #tabbrowser-tabbox {
+    /* Restore Parfait's margin system (Natsumi overrides with margin-right) */
+    margin-right: var(--pf-browser-separation) !important;
+    margin-bottom: var(--pf-browser-separation) !important;
+  }
+
+  &:has(#sidebar-main[hidden]) {
+    #browser:not([data-is-child="true"]) #tabbrowser-tabbox {
+      margin-left: var(--pf-browser-separation) !important;
+      margin-right: var(--pf-browser-separation) !important;
+    }
+  }
+}
+
+/* Parfait's context-sensitive tabbox margins */
+:root:not([inDOMFullscreen], [chromehidden~="toolbar"], [taskbartab]) {
+  #tabbrowser-tabbox {
+    margin-inline-end: var(--pf-browser-separation) !important;
+    margin-bottom: var(--pf-browser-separation) !important;
+
+    @media not -moz-pref("sidebar.visibility", "expand-on-hover") {
+      margin-inline: 0 var(--pf-browser-separation) !important;
+    }
+    @media not -moz-pref("sidebar.verticalTabs") {
+      &:not([sidebar-shown]) {
+        margin-inline: var(--pf-browser-separation) !important;
+      }
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   2. #nav-bar
+   Natsumi: border: none !important  (kills all borders)
+   Parfait: border-top: 0 !important (just the top)
+   Natsumi's rule is a superset — no visible conflict, but we
+   keep Parfait's min-height/padding intact (they don't conflict).
+   Nothing to fix here — Natsumi's "border: none" is compatible.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════
+   3. #vertical-spacer
+   Natsumi: display: none !important  ← kills Parfait's spacer entirely
+   Parfait needs #vertical-spacer for its toolbar layout (max-width:0,
+   ::before pseudo for the sidebar overlay, etc.)
+   Fix: restore Parfait's values.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root:not([customizing]) {
+  #vertical-spacer {
+    display: flex !important; /* override Natsumi's display:none */
+    max-width: 0 !important;
+    min-width: 0 !important;
+
+    /* Parfait uses ::before for the sidebar overlay click target */
+    &::before {
+      content: "";
+      width: var(--pf-sidebar-width);
+      height: var(--pf-navbar-height);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    :root:not([customtitlebar]) #navigator-toolbox[tabs-hidden] & {
+      display: flex !important;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. #TabsToolbar margin-inline
+   Natsumi adds margin-inline: var(--natsumi-browser-separation) (6px).
+   Parfait positions TabsToolbar via CSS grid (grid-area: 1/2), and
+   the margin fights the grid layout in horizontal mode.
+   Fix: remove Natsumi's margin in horizontal tab mode.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media not -moz-pref("sidebar.verticalTabs") {
+  #TabsToolbar {
+    margin-inline: 0 !important;
+  }
+}
+/* In vertical tabs mode Natsumi's margin-inline is fine — keep it */
+
+/* ═══════════════════════════════════════════════════════════════════
+   5. #sidebar-splitter WIDTH
+   Natsumi: width: var(--natsumi-browser-separation) = 6px
+   Parfait: width: var(--pf-browser-separation) = 10px
+   Parfait's wider splitter is better for resize UX.
+   ═══════════════════════════════════════════════════════════════════ */
+
+#sidebar-splitter {
+  width: var(--pf-browser-separation) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   6. #sidebar-box
+   Natsumi adds: padding:0, margin-bottom:6px, border, border-radius
+   Parfait adds: padding-block-end, border-radius-medium var
+   We keep: Natsumi's rounded border (looks good) but use Parfait's
+   spacing so the layout isn't broken.
+   ═══════════════════════════════════════════════════════════════════ */
+
+#sidebar-box {
+  /* Use Parfait's spacing, not Natsumi's 6px */
+  margin-bottom: var(--pf-browser-separation) !important;
+  padding-block-end: var(--pf-browser-separation) !important;
+  /* Keep Natsumi's border — it looks nice */
+  /* border and border-radius from Natsumi stay */
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   7. TOOLBAR BUTTON SIZING
+   Parfait: toolbarbutton-1 = 32×32px, icon = 16px with transition/bounce
+   Natsumi: .toolbarbutton-icon = 16×16px padding:6px max-height:40px
+   These mostly agree but Natsumi's max-height:40px on the nav-bar
+   buttons can override Parfait's 32px max. Fix: cap to Parfait's size.
+   ═══════════════════════════════════════════════════════════════════ */
+
+toolbar .toolbarbutton-1:not(#PlacesChevron, .toolbarbutton-combined-buttons-dropmarker) {
+  min-width: var(--pf-toolbaritem-size) !important;
+  min-height: var(--pf-toolbaritem-size) !important;
+  max-width: var(--pf-toolbaritem-size) !important;
+  max-height: var(--pf-toolbaritem-size) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   8. .tools-and-extensions (sidebar bottom strip)
+   Parfait: padding-inline: --pf-browser-separation, height:100%
+   Natsumi: margin-bottom: --natsumi-browser-separation, padding-inline
+   Both fight over padding. Parfait wins for the padding values.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media -moz-pref("sidebar.verticalTabs") {
+  .tools-and-extensions {
+    padding-inline: var(--pf-browser-separation) !important;
+    padding-block-end: var(--pf-browser-separation) !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   9. URLBAR — position/layout from Parfait, blur from Natsumi
+   Natsumi's urlbar.css is NOT loaded (excluded in natsumi-merged.css).
+   urlbar-merged.css handles the blur on the open state.
+   This section re-asserts Parfait's closed-state urlbar so nothing
+   from Natsumi's base.css leaks onto it.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Parfait controls the urlbar height/radius when closed */
+#urlbar:not([open]) {
+  height: var(--urlbar-height) !important;
+  min-height: unset !important;
+  --urlbar-height: var(--pf-urlbar-height) !important;
+  /* Natsumi base.css doesn't touch urlbar directly, but just in case: */
+  border-radius: unset !important;
+  border: unset !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   10. SPLIT VIEW SPLITTER
+   Natsumi: min-width: 6px, border:none, background:transparent
+   Parfait: min-width: --pf-split-resize-padding (10px), same visual
+   Use Parfait's value for better resize UX.
+   ═══════════════════════════════════════════════════════════════════ */
+
+#tabbrowser-tabpanels[splitview] .split-view-splitter {
+  min-width: var(--pf-split-resize-padding) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   11. FLOATING SIDEBAR (hide-sidebar mode)
+   Parfait positions #sidebar-main via position:fixed with its own
+   variables. Natsumi's base.css doesn't touch this — no conflict.
+   But Natsumi sets margin-bottom on #sidebar-box; in hide-sidebar
+   mode Parfait overrides margin-inline on #sidebar-box too.
+   Re-assert Parfait's values:
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media -moz-pref("sidebar.verticalTabs") and -moz-pref("sidebar.visibility", "hide-sidebar") {
+  :root:not([chromehidden~="toolbar"], [taskbartab]):has(#tabbrowser-tabs:not([expanded])) {
+    #sidebar-box {
+      margin-inline: var(--pf-browser-separation) 0 !important;
+    }
+    #sidebar-splitter:not([hidden]) + #tabbrowser-tabbox {
+      margin-inline: 0 var(--pf-browser-separation) !important;
+    }
+    #tabbrowser-tabbox {
+      margin-inline: var(--pf-browser-separation) !important;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   12. FULLSCREEN/POINTERLOCK WARNINGS
+   Natsumi styles these with haze material (blur, rounded pill).
+   Parfait doesn't touch them. Natsumi wins — no conflict, looks great.
+   No action needed.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════
+   13. BROWSER CONTAINER BORDER RADIUS
+   Parfait: .browserContainer { border-radius: --pf-browser-radius }
+   Natsumi: .browserSidebarContainer browser { border-radius: --natsumi-browser-border-radius }
+   These target different elements (.browserContainer vs browser inside
+   .browserSidebarContainer). No true conflict — both apply.
+   However the border-radius values differ. Sync them so rounded corners
+   are consistent: use Parfait's variable (default 4px scaled from 12px).
+   ═══════════════════════════════════════════════════════════════════ */
+
+.browserSidebarContainer {
+  border-radius: var(--pf-browser-radius) !important;
+
+  @media not (-moz-platform: macos) {
+    browser {
+      border-radius: var(--pf-browser-radius) !important;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   14. FINDBAR — Natsumi visual style with Parfait's selector specificity
+
+   Problem: Parfait uses ".browserContainer > findbar" (specificity 0,1,1).
+   Natsumi uses bare "findbar" (specificity 0,0,1). Even with !important,
+   when two rules BOTH use !important, the higher-specificity one wins.
+   So Parfait's background/border/shadow always beat Natsumi's.
+
+   Fix: repeat Natsumi's visual properties under the same high-specificity
+   selector so they win. Parfait's layout (position, width, animation)
+   is kept. Only the visual material (background, blur, border, shadow)
+   switches to Natsumi's haze style.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media not -moz-pref("natsumi.findbar.disabled") {
+  .browserContainer > findbar {
+    /* Natsumi haze material — overrides Parfait's panel background */
+    background: var(--natsumi-mat-th-background) !important;
+    backdrop-filter: var(--natsumi-mat-hz-backdrop) !important;
+    border: var(--natsumi-mat-hz-border-thin) !important;
+    box-shadow: var(--natsumi-mat-hz-shadow) !important;
+    border-radius: 15px !important;
+
+    /* Natsumi's dimensions */
+    width: min(550px, 90%) !important;
+    min-height: 70px !important;
+    height: auto !important;
+
+    /* Natsumi's hidden state (blur out instead of slide off) */
+    &[hidden] {
+      display: flex !important;
+      top: 0 !important;
+      opacity: 0 !important;
+      filter: blur(5px) !important;
+      pointer-events: none !important;
+    }
+
+    /* Restore Natsumi's textbox styles (Parfait overrides these) */
+    .findbar-container > :first-child .findbar-textbox {
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      font-size: 16px !important;
+      width: 100% !important;
+      padding: 0 !important;
+    }
+
+  /* Wider findbar option */
+  @media -moz-pref("natsumi.findbar.wider-findbar") {
+    .browserContainer > findbar {
+      width: min(720px, 90%) !important;
+    }
+  }
+}

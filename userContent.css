@@ -1,9 +1,12 @@
 /*
-  ⋅˚₊‧ ୨୧ ‧₊˚ ⋅
-    Parfait
-  ⋅˚₊‧ ୨୧ ‧₊˚ ⋅
-
-  https://github.com/reizumii/parfait
+  ╔═══════════════════════════════════════╗
+  ║   Parfait × Natsumi — Content Pages   ║
+  ╚═══════════════════════════════════════╝
 */
 
+/* Parfait: new tab page styling */
 @import "parfait/pages.css";
+
+/* Natsumi: PDF viewer, Firefox home, preferences, error pages, etc.
+   This is what gives you the Natsumi PDF theme. */
+@import "natsumi/natsumi-pages.css";

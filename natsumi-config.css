@@ -1,0 +1,42 @@
+/* ==== Parfait × Natsumi — Shared Config ==== */
+
+/*
+  Edit this file to configure both themes.
+  Changes here affect both Parfait and Natsumi.
+*/
+
+* {
+  /* ── Accent color ────────────────────────────────────────────────────
+     Used by Natsumi's color system (findbar, glimpse, backdrop tints).
+     Parfait is also bridged to this color below.
+     Examples: #aac7ff (green) | #aac7ff (sky blue) | #ddbcf3 (purple)
+  */
+  --natsumi-accent-color: rgba(255, 255, 255, 0.372);
+
+  /* pdf.js topbar width */
+  --pdfjs-topbar-max-width: 750px;
+
+  /* Firefox home background image */
+  --home-background-url: url('');
+}
+
+/* Bridge: Parfait uses --pf-accent-color; sync it to Natsumi's accent.
+   Delete this block if you want them to use different accent colors. */
+:root {
+  --pf-accent-color: var(--natsumi-accent-color);
+}
+
+/* ── Natsumi Haze Material (needed early for urlbar-merged.css) ────── */
+* {
+  --natsumi-mat-hz-background: rgba(255, 255, 255, 0.8);
+  --natsumi-mat-hz-backdrop: saturate(3) contrast(2) blur(100px);
+  --natsumi-mat-hz-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --natsumi-mat-hz-border: 2px solid rgba(20, 20, 20, 0.1);
+  --natsumi-mat-hz-border-thin: 1px solid rgba(20, 20, 20, 0.1);
+
+  @media (prefers-color-scheme: dark) {
+    --natsumi-mat-hz-background: rgba(0, 0, 0, 0.8);
+    --natsumi-mat-hz-border: 2px solid rgba(235, 235, 235, 0.1);
+    --natsumi-mat-hz-border-thin: 1px solid rgba(235, 235, 235, 0.1);
+  }
+}
